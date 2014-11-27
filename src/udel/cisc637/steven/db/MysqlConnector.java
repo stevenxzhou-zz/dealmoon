@@ -15,11 +15,16 @@ public class MysqlConnector {
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/xzhou?" +  "user=xzhou&password=0036");
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException e) {
+			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
