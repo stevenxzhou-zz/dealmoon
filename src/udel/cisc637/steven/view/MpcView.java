@@ -6,7 +6,7 @@ import udel.cisc637.steven.model.MpcModel;
 
 public class MpcView {
 	
-	private void displayAllMainCategories() {
+	public void displayAllMainCategories() {
 		// TODO Auto-generated method stub
 		MpcController mpcController = new MpcController();
 		List<MpcModel> mpcList= mpcController.getAllMainCategories();
@@ -15,6 +15,8 @@ public class MpcView {
 			System.out.println(e.getMainProductName());
 		}
 	}
+	
+	
 	
 	public static void main(String[] args){
 		MpcView mv = new MpcView();

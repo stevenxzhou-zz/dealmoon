@@ -1,5 +1,5 @@
 package udel.cisc637.steven.controller;
-import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ public class MpcController {
 	public List<MpcModel> getAllMainCategories(){
 		
 		String sql="select * from MainProductCategory";
-		List<MpcModel> mpcList = new ArrayList();
+		List<MpcModel> mpcList = new ArrayList<MpcModel>();
 		
 		try {
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
@@ -38,5 +38,34 @@ public class MpcController {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public List<MpcModel> addMainCategory(String MainCategoryName){
+		String sql="insert into MainProductCategory values ("+MainCategoryName+")";
+	
+		try {
+			pst = MysqlConnector.getInstance().prepareStatement(sql);
+			pst.executeQuery();
+			return getAllMainCategories();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} 
+	}
+	
+	public List<MpcModel> deleteMainCategory(String MainCategoryName){
+		
+		String sql="delete from MainProductCategory where MaincategoryName='"+MainCategoryName+"'";
+		
+		try {
+			pst = MysqlConnector.getInstance().prepareStatement(sql);
+			pst.executeQuery();
+			return getAllMainCategories();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} 
 	}
 }
