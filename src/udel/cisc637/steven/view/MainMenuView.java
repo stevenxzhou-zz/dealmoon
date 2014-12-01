@@ -11,69 +11,87 @@ public class MainMenuView {
 	
 	MainMenuController mmc = new MainMenuController();
 	
+	
 	public void displayGuestMainMenu(){
+		
+    	System.out.print("\n");
 		System.out.println("Welcome to Dealmoon, Guest!");
 		System.out.println("1. Check out the Products.");
 		System.out.println("2. Check out the Stores.");
 		System.out.println("3. Check out the Catetogories.");
 		System.out.println("4. User/Admin Login.");
-		
-		System.out.print("Please Enter Your Choice: ");
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		 
-	    int choice=0;
-	    
-	    try {
-	    	choice = Integer.parseInt(br.readLine());
-	    } catch (IOException ioe) {
-	    	System.out.println("IO error trying to read your name!");
-	    	System.exit(1);
-	    }
-	    
-	    mmc.guestMenu(choice);  
+		System.out.println("5. Quit");
+    	System.out.print("\n");
+    	
+    	int times=3;
+		int choice=readchoice(times,5);
+	    mmc.guestMenu(choice); 
 	}
 	
 	public void displayUserMainMenu(String User){
-		System.out.println("Welcome to Dealmoon, "+User+"!");
+		System.out.print("\n");
+		System.out.println("Welcome to Dealmoon, "+User+"(User)!");
 		System.out.println("1. Check out the Products.");
 		System.out.println("2. Check out the Stores.");
 		System.out.println("3. Check out the Catetogories.");
 		System.out.println("4. My Favorites.");
 		System.out.println("5. Logout.");
+		System.out.println("6. Quit");
+		System.out.print("\n");
 		
-		System.out.print("Please Enter Your Choice: ");
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		 
-	    String choice = null;
-	    try {
-	    	choice = br.readLine();
-	    } catch (IOException ioe) {
-	    	System.out.println("IO error trying to read your name!");
-	    	System.exit(1);
-	    }
+		int times=3;
+		int choice=readchoice(times,6);
+	    mmc.userMenu(choice);
 	}
 	
 	public void displayAdminMainMenu(String User){
-		
-		System.out.println("Welcome to Dealmoon, "+User+"(Admin)!");
+		System.out.print("\n");
+		System.out.println("Welcome to Dealmoon, "+User+"(Administrator)!");
 		System.out.println("1. Manage Products.");
 		System.out.println("2. Manage Stores.");
 		System.out.println("3. Manage Catetogories.");
 		System.out.println("4. Manage Users.");
 		System.out.println("5. Logout.");
+		System.out.println("6. Quit");
+		System.out.print("\n");
 		
+		int times=3;
+		int choice=readchoice(times,6);
+	    mmc.adminMenu(choice);
+	}
+	
+	int choice;
+	
+	// common method for reading choices the user input
+	public int readchoice(int times, int options){
+	    
 		System.out.print("Please Enter Your Choice: ");
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-	    String choice = null;
+	    
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    try {
-	    	choice = br.readLine();
-	    } catch (IOException ioe) {
+	    	choice = Integer.parseInt(br.readLine());
+	    	
+	    	if(choice<=options){
+	    		return choice;
+	    	}else if(times>0){
+	    		times--;
+	    		System.out.println("Wrong Choice! You have "+times+" times to try");
+	    		readchoice(times,options);
+	    	}else{
+	    		System.exit(1);
+	    	}
+			
+		} catch (NumberFormatException e) {
+			times--;
+	    	System.out.println("Please Input a Number, You have "+times+" times to try");
+	    	readchoice(times,options);
+	    	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			times--;
 	    	System.out.println("IO error trying to read your name!");
-	    	System.exit(1);
-	    }
+	    	readchoice(times,options);
+		}
+		return choice;
 	}
 }
