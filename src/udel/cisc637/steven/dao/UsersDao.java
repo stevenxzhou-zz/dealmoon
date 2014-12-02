@@ -117,21 +117,24 @@ public class UsersDao {
 			String sql="select * from Users where Name=? and Password=?";
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
 			pst.setString(1, user.getName());
-			pst.setString(2, user.getEmail());
+			pst.setString(2, user.getPassword());
 			pst.addBatch();
 			
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()){
-				Main.user=user;
+				Main.setAdmin(rs.getBoolean("Admin"));
+				Main.setLogin(true);
+				Main.setUserName(rs.getString("Name"));
+				Main.setEmail(rs.getString("Email"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void logout(){
-		Main.user=null;	
+		Main.setAdmin(false);
+		Main.setLogin(false);
 	}
 }

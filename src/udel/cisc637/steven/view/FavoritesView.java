@@ -13,24 +13,40 @@ public class FavoritesView {
 	public void displayAllFavorites() {
 		// TODO Auto-generated method stub
 		FavoritesDao favoritesDao = new FavoritesDao();
-		List<FavoritesModel> favoritesList= favoritesDao.getAllFavorites();
+		List<FavoritesModel> favoritesList= favoritesDao.getFavoritesByEmail(Main.getEmail());
 		ProductsDao productsController = new ProductsDao();
 		System.out.print("\n");
 		System.out.println("===Favorites===");
 		for(FavoritesModel e:favoritesList){
 			String productName=productsController.getProduct( e.getProductID()).getProductName();
-			System.out.println("Product Name:"+productName);
-			System.out.println("Store Name:"+e.getStoreName());
+			System.out.println(">>Favorite Products");
+			if(productName!=null){
+				System.out.println(e.getProductID()+" "+productName);
+			}else{
+				System.out.println("No items!");
+			}
+		}
+		
+		for(FavoritesModel e:favoritesList){
+			System.out.println(">>Favorite Stores");
+			String storeName=e.getStoreName();
+			if(storeName!=null){
+				System.out.println("StoreName:"+e.getStoreName());
+			}else{
+				System.out.println("No items!");
+			}
+			
 		}
 		System.out.println("=============");
 		System.out.print("\n");
 		
 		System.out.println("===Menu===");
-		System.out.println("1. Delete Favorites.");
-		System.out.println("2. Go Back.");
-		System.out.println("3. Quit");
+		System.out.println("1. Delete Favorite Product.");
+		System.out.println("2. Delete Favorite Store.");
+		System.out.println("3. Go Back.");
+		System.out.println("4. Quit");
 		
-		int options=3;
+		int options=4;
 		
 		MainMenuView mainMenuView = new MainMenuView();
 		int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);

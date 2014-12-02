@@ -6,11 +6,8 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import udel.cisc637.steven.app.Main;
-import udel.cisc637.steven.controller.ProductsViewController;
 import udel.cisc637.steven.controller.UsersViewController;
 import udel.cisc637.steven.dao.UsersDao;
-import udel.cisc637.steven.dao.UsersDao;
-import udel.cisc637.steven.model.UsersModel;
 import udel.cisc637.steven.model.UsersModel;
 
 public class UsersView {
@@ -30,7 +27,7 @@ public class UsersView {
 		
 		int options;
 		
-		if(Main.user.isAdmin()&&Main.CurrentPageNumber>1){
+		if(Main.Admin&&Main.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -49,7 +46,7 @@ public class UsersView {
 			usersViewController.controlAllUsersViewAdmin(choice);
 		}
 		
-		if(Main.user.isAdmin()&&Main.CurrentPageNumber==1){
+		if(Main.Admin&&Main.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -68,7 +65,7 @@ public class UsersView {
 		}
 		
 		
-		if(!Main.user.isAdmin()&&Main.CurrentPageNumber>1){
+		if(!Main.Admin&&Main.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -84,7 +81,7 @@ public class UsersView {
 			usersViewController.controlAllUsersView(choice);
 		}
 		
-		if(!Main.user.isAdmin()&&Main.CurrentPageNumber==1){
+		if(!Main.Admin&&Main.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -122,7 +119,7 @@ public class UsersView {
 			System.out.print("\n");
 			
 			int options;
-			if(Main.user.isAdmin()){
+			if(Main.Admin){
 				System.out.println("===Menu===");
 				System.out.println("1. Delete");
 				System.out.println("2. Update");
@@ -174,7 +171,7 @@ public class UsersView {
 	    }
 		
 		userDao.login(user);
-		mmv.displayMainMenu(user);
+		mmv.displayMainMenu(Main.getUserName());
 	}
 	
 	public void logout(){

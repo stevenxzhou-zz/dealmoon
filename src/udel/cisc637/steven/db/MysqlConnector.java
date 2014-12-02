@@ -12,10 +12,8 @@ public class MysqlConnector {
 		if(conn == null){
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/xzhou?"+"user=xzhou&password=0036"+"&autoReconnect=true&failOverReadOnly=false&maxReconnects=10");
-//				if(!conn.isClosed()){
-//					System.out.println("Success");
-//				}
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/xzhou?"+"user=root&password=0036"+"&autoReconnect=true&failOverReadOnly=false&maxReconnects=10");
+				
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

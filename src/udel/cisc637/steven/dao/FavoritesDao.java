@@ -1,6 +1,5 @@
 package udel.cisc637.steven.dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,12 +19,13 @@ public class FavoritesDao {
 	public void addFavorite(FavoritesModel favorite){
 		
 		try {
-			String sql="insert into Favorites values (?,?,?,?)";
+			String sql="insert into Favorites values (?,?,?,?,?)";
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
-			pst.setString(1, favorite.getEmail());
-			pst.setInt(2, favorite.getProductID());
-			pst.setString(3, favorite.getStoreName());
-			pst.setDate(4, favorite.getAddDate());
+			pst.setInt(1, favorite.getFavID());
+			pst.setString(2, favorite.getEmail());
+			pst.setInt(3, favorite.getProductID());
+			pst.setString(4, favorite.getStoreName());
+			pst.setDate(5, favorite.getAddDate());
 			
 			pst.executeUpdate();
 		} catch (SQLException e) {

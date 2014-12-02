@@ -5,14 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import udel.cisc637.steven.app.Main;
-import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.dao.UsersDao;
-import udel.cisc637.steven.model.FavoritesModel;
 import udel.cisc637.steven.model.UsersModel;
-import udel.cisc637.steven.view.FavoritesView;
 import udel.cisc637.steven.view.MainMenuView;
 import udel.cisc637.steven.view.UsersView;
-import udel.cisc637.steven.view.SPCView;
+
 
 public class UsersViewController {
 	
@@ -96,7 +93,7 @@ public class UsersViewController {
 
 	
 	public void controlUserFromEmailView(int choice){
-		if(Main.user.isAdmin()){
+		if(Main.Admin){
 			switch(choice){
 			case 1: deleteUser(Main.Email);
 				break;
@@ -138,7 +135,7 @@ public class UsersViewController {
 	public void goBackToMainMenu(){
 		
 		MainMenuView mainMenuView = new MainMenuView();
-		mainMenuView.displayMainMenu(Main.user);
+		mainMenuView.displayMainMenu(Main.getUserName());
 	}
 	
 	public void nextpage(int currentPage){

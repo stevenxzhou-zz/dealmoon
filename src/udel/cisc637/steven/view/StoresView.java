@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import udel.cisc637.steven.app.Main;
-import udel.cisc637.steven.controller.ProductsViewController;
 import udel.cisc637.steven.controller.StoresViewController;
 import udel.cisc637.steven.dao.StoresDao;
 import udel.cisc637.steven.model.StoresModel;
@@ -27,7 +26,7 @@ public class StoresView {
 		
 		int options=0;
 		
-		if(!Main.user.isAdmin()&&Main.CurrentPageNumber>1){
+		if(!Main.Admin&&Main.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -42,7 +41,7 @@ public class StoresView {
 			storesViewController.controlAllStoresView(choice);
 		}
 		
-		if(!Main.user.isAdmin()&&Main.CurrentPageNumber==1){
+		if(!Main.Admin&&Main.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Store by StoreName.");
@@ -56,7 +55,7 @@ public class StoresView {
 			storesViewController.controlAllStoresView(choice);
 		}
 		
-		if(Main.user.isAdmin()&&Main.CurrentPageNumber>1){
+		if(Main.Admin&&Main.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -75,7 +74,7 @@ public class StoresView {
 			storesViewController.controlAllStoresViewAdmin(choice);
 		}
 		
-		if(Main.user.isAdmin()&&Main.CurrentPageNumber==1){
+		if(Main.Admin&&Main.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Store by StoreName.");
@@ -112,7 +111,7 @@ public class StoresView {
 			System.out.println("===========");
 			System.out.print("\n");
 			
-			if(Main.user.isAdmin()){
+			if(Main.Admin){
 				System.out.println("===Menu===");
 				System.out.println("1. delete");
 				System.out.println("2. update");
@@ -126,7 +125,7 @@ public class StoresView {
 				
 				StoresViewController storesViewController = new StoresViewController();
 				storesViewController.controlStoreViewAdmin(choice);
-			}else if(!Main.user.isAdmin()){
+			}else if(Main.login){
 				System.out.println("===Menu===");
 				System.out.println("1. Add store to favorites");
 				System.out.println("2. Go Back.");

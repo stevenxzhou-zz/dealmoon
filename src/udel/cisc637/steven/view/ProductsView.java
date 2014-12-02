@@ -7,13 +7,8 @@ import java.util.List;
 
 import udel.cisc637.steven.app.Main;
 import udel.cisc637.steven.controller.ProductsViewController;
-import udel.cisc637.steven.controller.SPCViewController;
 import udel.cisc637.steven.dao.ProductsDao;
-import udel.cisc637.steven.dao.SPCDao;
-import udel.cisc637.steven.dao.StoresDao;
 import udel.cisc637.steven.model.ProductsModel;
-import udel.cisc637.steven.model.SPCModel;
-import udel.cisc637.steven.model.StoresModel;
 
 public class ProductsView {
 	
@@ -32,7 +27,7 @@ public class ProductsView {
 		
 		int options;
 		
-		if(Main.user.isAdmin()&&Main.CurrentPageNumber>1){
+		if(Main.Admin&&Main.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -51,7 +46,7 @@ public class ProductsView {
 			productsViewController.controlAllProductsViewAdmin(choice);
 		}
 		
-		if(Main.user.isAdmin()&&Main.CurrentPageNumber==1){
+		if(Main.Admin&&Main.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -70,7 +65,7 @@ public class ProductsView {
 		}
 		
 		
-		if(!Main.user.isAdmin()&&Main.CurrentPageNumber>1){
+		if(!Main.Admin&&Main.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -86,7 +81,7 @@ public class ProductsView {
 			productsViewController.controlAllProductsView(choice);
 		}
 		
-		if(!Main.user.isAdmin()&&Main.CurrentPageNumber==1){
+		if(!Main.Admin&&Main.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -100,8 +95,6 @@ public class ProductsView {
 			ProductsViewController productsViewController = new ProductsViewController();
 			productsViewController.controlAllProductsView(choice);
 		}
-		
-		
 	}
 	
 	public void displayProductFromProductID(int ProductID) {
@@ -128,14 +121,14 @@ public class ProductsView {
 			System.out.print("\n");
 			
 			int options;
-			if(Main.user.isAdmin()){
+			if(Main.login&&Main.Admin){
 				System.out.println("===Menu===");
 				System.out.println("1. Delete");
 				System.out.println("2. Update");
 				System.out.println("3. Go Back.");
 				System.out.println("4. Quit");
-				options=3;
-			}else if(!Main.user.isAdmin()){
+				options=4;
+			}else if(Main.login&&!Main.Admin){
 				System.out.println("===Menu===");
 				System.out.println("1. Add Product to Favorites.");
 				System.out.println("2. Go Back.");
@@ -179,15 +172,28 @@ public class ProductsView {
 			System.out.println("===============");
 			System.out.print("\n");
 			
-			Main.setSubCategoryName(SubCategoryName);
-			System.out.println("===Menu===");
-			System.out.println("1. Next Page.");
-			System.out.println("2. Previous Page");
-			System.out.println("3. See Detail.");
-			System.out.println("4. Go Back.");
-			System.out.println("5. Quit");
+			int options;
+			if(Main.CurrentPageNumber>1){
+				Main.setSubCategoryName(SubCategoryName);
+				System.out.println("===Menu===");
+				System.out.println("1. Next Page.");
+				System.out.println("2. Previous Page");
+				System.out.println("3. See Detail.");
+				System.out.println("4. Go Back.");
+				System.out.println("5. Quit");
+				
+				options=5;
+			}else{
+				Main.setSubCategoryName(SubCategoryName);
+				System.out.println("===Menu===");
+				System.out.println("1. Next Page.");
+				System.out.println("2. See Detail.");
+				System.out.println("3. Go Back.");
+				System.out.println("4. Quit");
+				
+				options=4;
+			}
 			
-			int options=5;
 			
 			MainMenuView mainMenuView = new MainMenuView();
 			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);

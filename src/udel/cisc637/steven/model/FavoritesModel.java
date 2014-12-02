@@ -3,6 +3,7 @@ package udel.cisc637.steven.model;
 import java.sql.Date;
 
 public class FavoritesModel {
+	public int FavID;
 	public String Email;
 	public int ProductID;
 	public String StoreName;
@@ -31,6 +32,12 @@ public class FavoritesModel {
 	}
 	public void setAddDate(Date addDate) {
 		AddDate = addDate;
+	}
+	public int getFavID() {
+		return FavID;
+	}
+	public void setFavID(int favID) {
+		FavID = favID;
 	}
 	
 }

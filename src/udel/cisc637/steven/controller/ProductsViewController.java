@@ -3,8 +3,6 @@ package udel.cisc637.steven.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Date;
-
 import udel.cisc637.steven.app.Main;
 import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.dao.ProductsDao;
@@ -131,7 +129,7 @@ public class ProductsViewController {
 	
 
 	public void controlProductFromProductIdView(int choice){
-		if(Main.user.isAdmin()){
+		if(Main.Admin){
 			switch(choice){
 			case 1: deleteProduct(Main.ProductID);
 				break;
@@ -145,7 +143,7 @@ public class ProductsViewController {
 				System.out.println("No Such Choice!");
 			
 			}
-		}else if(!Main.user.isAdmin()){
+		}else if(!Main.Admin&&Main.login){
 			switch(choice){
 			case 1: addProductToFavorites();
 				break;
@@ -179,7 +177,15 @@ public class ProductsViewController {
 	public void goBackToProducts(){
 		
 		ProductsView productsView = new ProductsView();
-		productsView.displayProductsFromSub(Main.SubCategoryName);
+		if(Main.SubCategoryName!=null)
+		{
+			productsView.displayProductsFromSub(Main.getSubCategoryName());
+			
+		}else
+		{
+			productsView.displayAllProducts(5, Main.CurrentPageNumber);
+		}
+		
 	}
 	
 	public void goBackToSubCategories(){
@@ -191,7 +197,8 @@ public class ProductsViewController {
 	public void goBackToMainMenu(){
 		
 		MainMenuView mainMenuView = new MainMenuView();
-		mainMenuView.displayMainMenu(Main.user);
+		mainMenuView.displayMainMenu(Main.getUserName());
+		Main.SubCategoryName=null;
 	}
 	
 	public void nextpage(int currentPage){
@@ -212,7 +219,7 @@ public class ProductsViewController {
 
 		FavoritesDao favoritesDao = new FavoritesDao();
 		FavoritesModel favorite = new FavoritesModel();
-		favorite.setEmail(Main.user.getEmail());
+		favorite.setEmail(Main.getEmail());
 		favorite.setProductID(Main.getProductID());
 		java.util.Date today = new java.util.Date();
 		favorite.setAddDate(new java.sql.Date(today.getTime()));

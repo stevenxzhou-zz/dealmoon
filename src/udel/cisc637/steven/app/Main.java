@@ -4,18 +4,16 @@ import udel.cisc637.steven.model.UsersModel;
 import udel.cisc637.steven.view.MainMenuView;
 
 public class Main {
-	
-	// this is for identifying user's access
-	public static UsersModel user=null;
-	
-	
+
 	// this is for traking the name of the category for going back to the previous menu.
 	public static String MainCategoryName=null;
 	public static String SubCategoryName=null;
 	public static String StoreName=null;
 	public static String Email=null;
 	public static int ProductID=-1;
-	
+	public static boolean login=false;
+	public static boolean Admin=false;
+	public static String UserName="";
 	// the initial page number is 1
 	public static int CurrentPageNumber=1;
 	
@@ -54,13 +52,6 @@ public class Main {
 			StoreName = storeName;
 		}
 
-		public static UsersModel getUser() {
-			return user;
-		}
-		
-		public static void setUser(UsersModel user) {
-			Main.user = user;
-		}
 		public static int getProductID() {
 			return ProductID;
 		}
@@ -72,5 +63,23 @@ public class Main {
 		}
 		public static void setEmail(String email) {
 			Email = email;
+		}
+		public static boolean isLogin() {
+			return login;
+		}
+		public static void setLogin(boolean login) {
+			Main.login = login;
+		}
+		public static boolean isAdmin() {
+			return Admin;
+		}
+		public static void setAdmin(boolean admin) {
+			Admin = admin;
+		}
+		public static String getUserName() {
+			return UserName;
+		}
+		public static void setUserName(String userName) {
+			UserName = userName;
 		}
 }

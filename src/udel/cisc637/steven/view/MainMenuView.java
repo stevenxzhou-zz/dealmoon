@@ -6,18 +6,20 @@ import java.io.InputStreamReader;
 
 import udel.cisc637.steven.app.Main;
 import udel.cisc637.steven.controller.MainMenuController;
-import udel.cisc637.steven.dao.MPCDao;
 import udel.cisc637.steven.model.UsersModel;
 
 public class MainMenuView {
 	
 	MainMenuController mainMenuController = new MainMenuController();
 	
-	public void displayMainMenu(UsersModel user){
-		if(user.isAdmin()){
-			displayAdminMainMenu(user.getName());
-		}else if(!user.isAdmin()){
-			displayUserMainMenu(user.getName());
+	public void displayMainMenu(String UserName){
+		Main.SubCategoryName=null;
+		Main.ProductID=-1;
+		
+		if(Main.Admin){
+			displayAdminMainMenu(UserName);
+		}else if(Main.login){
+			displayUserMainMenu(UserName);
 		}else{
 			displayGuestMainMenu();
 		}

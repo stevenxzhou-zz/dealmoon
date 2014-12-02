@@ -135,7 +135,7 @@ public class StoresViewController {
 	public void goBackToMainMenu(){
 		
 		MainMenuView mainMenuView = new MainMenuView();
-		mainMenuView.displayMainMenu(Main.user);
+		mainMenuView.displayMainMenu(Main.UserName);
 	}
 	
 	public void goBackToStores(){
@@ -168,7 +168,8 @@ public class StoresViewController {
 
 		FavoritesDao favoritesDao = new FavoritesDao();
 		FavoritesModel favorite = new FavoritesModel();
-		favorite.setEmail(Main.user.getEmail());
+		favorite.setFavID(0);
+		favorite.setEmail(Main.getEmail());
 		favorite.setStoreName(Main.getStoreName());
 		java.util.Date today = new java.util.Date();
 		favorite.setAddDate(new java.sql.Date(today.getTime()));

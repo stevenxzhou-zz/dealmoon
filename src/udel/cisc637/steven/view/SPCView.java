@@ -22,7 +22,7 @@ public class SPCView {
 					MainCategoryName = br.readLine();	
 				}
 				SPCDao spcDao = new SPCDao();
-				List<SPCModel> spcList= spcDao.getAllSubCategories();
+				List<SPCModel> spcList= spcDao.getSubCategoriesByMainCategoryName(MainCategoryName);
 		
 				System.out.print("\n");
 				System.out.println("===Sub Categories===");
@@ -31,20 +31,37 @@ public class SPCView {
 				}
 				System.out.println("===================");
 				System.out.print("\n");
-				
-				System.out.println("===Menu===");
-				System.out.println("1. See Products User a SubCategory.");
-				System.out.println("2. Go Back.");
-				System.out.println("3. Quit");
-				
 				Main.setMainCategoryName(MainCategoryName);
-				
-				int options=3;
-				MainMenuView mainMenuView = new MainMenuView();
-				int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
-				
-				SPCViewController spcViewController = new SPCViewController();
-				spcViewController.controlSPCView(choice);
+				if(Main.Admin){
+					// display menus
+					System.out.println("===Menu===");
+					System.out.println("1. Add New MainCategory");
+					System.out.println("2. Delete MainCategory");
+					System.out.println("3. See Products Under a Subcategory.");
+					System.out.println("4. Go Back.");
+					System.out.println("5. Quit");
+					
+					// control menus
+					int options=5;
+					MainMenuView mainMenuView = new MainMenuView();
+					int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+					MPCViewController mpcViewController = new MPCViewController();
+					mpcViewController.controlMPCViewAdmin(choice);
+				}else{
+					// display menus
+					System.out.println("===Menu===");
+					System.out.println("1. See Products Under a Subcategory.");
+					System.out.println("2. Go Back.");
+					System.out.println("3. Quit");
+					
+					// control menus
+					int options=3;
+					MainMenuView mainMenuView = new MainMenuView();
+					int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+					
+					SPCViewController spcViewController = new SPCViewController();
+					spcViewController.controlSPCView(choice);
+				}
 			}
 		 	catch (IOException ioe) { 
 		    	System.out.println("IO error trying to read your name!");

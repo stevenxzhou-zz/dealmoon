@@ -10,7 +10,6 @@ import java.util.List;
 import udel.cisc637.steven.app.Main;
 import udel.cisc637.steven.db.MysqlConnector;
 import udel.cisc637.steven.model.ProductsModel;
-import udel.cisc637.steven.model.SPCModel;
 
 public class ProductsDao {
 	Statement statement = null;

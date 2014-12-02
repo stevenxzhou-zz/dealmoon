@@ -9,7 +9,6 @@ import java.util.List;
 
 import udel.cisc637.steven.db.MysqlConnector;
 import udel.cisc637.steven.model.StoresModel;
-import udel.cisc637.steven.model.StoresModel;
 
 public class StoresDao {
 	Statement statement = null;
