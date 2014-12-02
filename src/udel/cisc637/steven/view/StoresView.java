@@ -130,6 +130,8 @@ public class StoresView {
 				System.out.println("1. Add store to favorites");
 				System.out.println("2. Go Back.");
 				System.out.println("3. Quit");
+				Main.setStoreName(StoreName);
+				
 				int options=3;
 				MainMenuView mainMenuView = new MainMenuView();
 				int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);

@@ -129,7 +129,7 @@ public class UsersViewController {
 	public void goBackToUsers(){
 		
 		UsersView usersView = new UsersView();
-		usersView.displayUserFromEmail(Main.Email);
+		usersView.displayAllUsers(5, Main.CurrentPageNumber);
 	}
 
 	public void goBackToMainMenu(){
@@ -173,7 +173,7 @@ public class UsersViewController {
 			br = new BufferedReader(new InputStreamReader(System.in));
 			String UserName = br.readLine();
 			if(UserName!=null){
-				user.setName(Email);
+				user.setName(UserName);
 			}
 			System.out.print("Please Enter Password: ");
 			br = new BufferedReader(new InputStreamReader(System.in));
@@ -189,10 +189,11 @@ public class UsersViewController {
 				user.setAdmin(Admin);
 			}
 			
-			if(usersDao.getUser(Email)!=null){
+			UsersModel olduser = usersDao.getUser(Email);
+			if(olduser.getEmail()==Email){
+				System.out.print("Email: "+ olduser.getEmail());
 				System.out.print("User Exist! ");
 			}else{
-				
 				usersDao.addUser(user);
 			}
 			
@@ -245,7 +246,6 @@ public class UsersViewController {
 		
 		try{
 			if(Email==null){
-				
 				System.out.print("Please Enter Email: ");
 				Email = br.readLine();
 				if(Email!=null){

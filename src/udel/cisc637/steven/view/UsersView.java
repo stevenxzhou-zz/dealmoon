@@ -111,7 +111,7 @@ public class UsersView {
 			UsersModel user = usersDao.getUser(Email);
 			
 			System.out.print("\n");
-			System.out.println("===Product===");
+			System.out.println("===User===");
 			System.out.println("User Name: "+user.getName());
 			System.out.println("Password: "+user.getPassword());
 			System.out.println("Admin: "+user.isAdmin());

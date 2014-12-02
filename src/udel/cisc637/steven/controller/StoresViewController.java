@@ -168,7 +168,6 @@ public class StoresViewController {
 
 		FavoritesDao favoritesDao = new FavoritesDao();
 		FavoritesModel favorite = new FavoritesModel();
-		favorite.setFavID(0);
 		favorite.setEmail(Main.getEmail());
 		favorite.setStoreName(Main.getStoreName());
 		java.util.Date today = new java.util.Date();

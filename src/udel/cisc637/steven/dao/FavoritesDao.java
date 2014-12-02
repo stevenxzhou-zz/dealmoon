@@ -19,13 +19,12 @@ public class FavoritesDao {
 	public void addFavorite(FavoritesModel favorite){
 		
 		try {
-			String sql="insert into Favorites values (?,?,?,?,?)";
+			String sql="insert into Favorites (Email,ProductID, StoreName, AddDate ) values (?,?,?,?)";
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
-			pst.setInt(1, favorite.getFavID());
-			pst.setString(2, favorite.getEmail());
-			pst.setInt(3, favorite.getProductID());
-			pst.setString(4, favorite.getStoreName());
-			pst.setDate(5, favorite.getAddDate());
+			pst.setString(1, favorite.getEmail());
+			pst.setInt(2, favorite.getProductID());
+			pst.setString(3, favorite.getStoreName());
+			pst.setDate(4, favorite.getAddDate());
 			
 			pst.executeUpdate();
 		} catch (SQLException e) {

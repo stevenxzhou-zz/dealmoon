@@ -17,27 +17,24 @@ public class FavoritesView {
 		ProductsDao productsController = new ProductsDao();
 		System.out.print("\n");
 		System.out.println("===Favorites===");
+		System.out.println(">>Favorite Products");
 		for(FavoritesModel e:favoritesList){
 			String productName=productsController.getProduct( e.getProductID()).getProductName();
-			System.out.println(">>Favorite Products");
+			
 			if(productName!=null){
 				System.out.println(e.getProductID()+" "+productName);
-			}else{
-				System.out.println("No items!");
 			}
 		}
 		
+		System.out.println(">>Favorite Stores");
 		for(FavoritesModel e:favoritesList){
-			System.out.println(">>Favorite Stores");
+			
 			String storeName=e.getStoreName();
 			if(storeName!=null){
 				System.out.println("StoreName:"+e.getStoreName());
-			}else{
-				System.out.println("No items!");
 			}
-			
 		}
-		System.out.println("=============");
+		System.out.println("===============");
 		System.out.print("\n");
 		
 		System.out.println("===Menu===");

@@ -219,6 +219,7 @@ public class ProductsViewController {
 
 		FavoritesDao favoritesDao = new FavoritesDao();
 		FavoritesModel favorite = new FavoritesModel();
+		favorite.setFavID(0);
 		favorite.setEmail(Main.getEmail());
 		favorite.setProductID(Main.getProductID());
 		java.util.Date today = new java.util.Date();
