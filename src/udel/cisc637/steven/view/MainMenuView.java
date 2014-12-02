@@ -4,14 +4,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import udel.cisc637.steven.app.Main;
 import udel.cisc637.steven.controller.MainMenuController;
-import udel.cisc637.steven.controller.MpcController;
+import udel.cisc637.steven.dao.MPCDao;
+import udel.cisc637.steven.model.UsersModel;
 
 public class MainMenuView {
 	
-	MainMenuController mmc = new MainMenuController();
+	MainMenuController mainMenuController = new MainMenuController();
 	
-	
+	public void displayMainMenu(UsersModel user){
+		if(user.isAdmin()){
+			displayAdminMainMenu(user.getName());
+		}else if(!user.isAdmin()){
+			displayUserMainMenu(user.getName());
+		}else{
+			displayGuestMainMenu();
+		}
+	}
 	public void displayGuestMainMenu(){
 		
     	System.out.print("\n");
@@ -23,9 +33,8 @@ public class MainMenuView {
 		System.out.println("5. Quit");
     	System.out.print("\n");
     	
-    	int times=3;
-		int choice=readchoice(times,5);
-	    mmc.guestMenu(choice); 
+		int choice=readchoice(Main.AllowedInputTimes,5);
+	    mainMenuController.guestMenu(choice); 
 	}
 	
 	public void displayUserMainMenu(String User){
@@ -38,10 +47,9 @@ public class MainMenuView {
 		System.out.println("5. Logout.");
 		System.out.println("6. Quit");
 		System.out.print("\n");
-		
-		int times=3;
-		int choice=readchoice(times,6);
-	    mmc.userMenu(choice);
+
+		int choice=readchoice(Main.AllowedInputTimes,6);
+	    mainMenuController.userMenu(choice);
 	}
 	
 	public void displayAdminMainMenu(String User){
@@ -55,18 +63,14 @@ public class MainMenuView {
 		System.out.println("6. Quit");
 		System.out.print("\n");
 		
-		int times=3;
-		int choice=readchoice(times,6);
-	    mmc.adminMenu(choice);
+		int choice=readchoice(Main.AllowedInputTimes,6);
+	    mainMenuController.adminMenu(choice);
 	}
 	
 	int choice;
-	
 	// common method for reading choices the user input
 	public int readchoice(int times, int options){
-	    
 		System.out.print("Please Enter Your Choice: ");
-	    
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    try {
 	    	choice = Integer.parseInt(br.readLine());

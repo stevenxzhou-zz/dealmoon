@@ -1,28 +1,28 @@
 package udel.cisc637.steven.controller;
 
 import udel.cisc637.steven.view.FavoritesView;
-import udel.cisc637.steven.view.MpcView;
+import udel.cisc637.steven.view.MPCView;
 import udel.cisc637.steven.view.ProductsView;
 import udel.cisc637.steven.view.StoresView;
 import udel.cisc637.steven.view.UsersView;
 
 public class MainMenuController {
 	
-	ProductsView pv = new ProductsView();
-	StoresView sv = new StoresView();
-	MpcView mv = new MpcView();
-	FavoritesView fv = new FavoritesView();
-	UsersView uv = new UsersView();
+	ProductsView productsView = new ProductsView();
+	StoresView storesView = new StoresView();
+	MPCView mpcView = new MPCView();
+	FavoritesView favoritesView = new FavoritesView();
+	UsersView usersView = new UsersView();
 	
 	public void guestMenu(int choice){
 		switch(choice){
-		case 1: pv.displayAllProducts(5,1);
+		case 1: productsView.displayAllProducts(5,1);
 			break;
-		case 2: sv.displayAllStores(5,1);
+		case 2: storesView.displayAllStores(5,1);
 			break;
-		case 3: mv.displayAllMainCategories();
+		case 3: mpcView.displayAllMainCategories();
 			break;
-		case 4: uv.login();
+		case 4: usersView.login();
 			break;
 		case 5: System.exit(1);
 			break;
@@ -34,15 +34,15 @@ public class MainMenuController {
 	
 	public void userMenu(int choice){
 		switch(choice){
-		case 1: pv.displayAllProducts(5,1);
+		case 1: productsView.displayAllProducts(5,1);
 			break;
-		case 2: sv.displayAllStores(5,1);
+		case 2: storesView.displayAllStores(5,1);
 			break;
-		case 3: mv.displayAllMainCategories();
+		case 3: mpcView.displayAllMainCategories();
 			break;
-		case 4: fv.displayAllFavorites();
+		case 4: favoritesView.displayAllFavorites();
 			break;
-		case 5: uv.logout();
+		case 5: usersView.logout();
 			break;
 		case 6: System.exit(1);
 			break;
@@ -53,15 +53,15 @@ public class MainMenuController {
 	
 	public void adminMenu(int choice){
 		switch(choice){
-		case 1: pv.displayAllProducts(5,1);
+		case 1: productsView.displayAllProducts(5,1);
 			break;
-		case 2: sv.displayAllStores(5,1);
+		case 2: storesView.displayAllStores(5,1);
 			break;
-		case 3: mv.displayAllMainCategories();
+		case 3: mpcView.displayAllMainCategories();
 			break;
-		case 4: uv.displayAllUsers();
+		case 4: usersView.displayAllUsers(5,1);
 			break;
-		case 5: uv.logout();
+		case 5: usersView.logout();
 			break;
 		case 6: System.exit(1);
 			break;

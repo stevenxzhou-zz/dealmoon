@@ -5,6 +5,7 @@ public class UsersModel {
 	private String Name;
 	private String Password;
 	private boolean Admin;
+	
 	public String getEmail() {
 		return Email;
 	}

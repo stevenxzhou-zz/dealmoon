@@ -1,8 +1,6 @@
 package udel.cisc637.steven.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MysqlConnector {
 	
@@ -14,7 +12,10 @@ public class MysqlConnector {
 		if(conn == null){
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/xzhou?" +  "user=xzhou&password=0036");
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/xzhou?"+"user=xzhou&password=0036"+"&autoReconnect=true&failOverReadOnly=false&maxReconnects=10");
+//				if(!conn.isClosed()){
+//					System.out.println("Success");
+//				}
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

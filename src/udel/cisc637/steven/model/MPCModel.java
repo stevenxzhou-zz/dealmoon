@@ -1,6 +1,6 @@
 package udel.cisc637.steven.model;
 
-public class MpcModel {
+public class MPCModel {
 	private String MainProductName=null;
 
 	public String getMainProductName() {

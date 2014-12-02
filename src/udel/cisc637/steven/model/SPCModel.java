@@ -1,6 +1,6 @@
 package udel.cisc637.steven.model;
 
-public class SpcModel {
+public class SPCModel {
 	private String MainProductName=null;
 	private String SubProductName=null;
 

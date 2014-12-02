@@ -6,95 +6,194 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import udel.cisc637.steven.app.Main;
-import udel.cisc637.steven.controller.ProductsController;
-import udel.cisc637.steven.controller.SpcController;
-import udel.cisc637.steven.controller.StoresController;
+import udel.cisc637.steven.controller.ProductsViewController;
+import udel.cisc637.steven.controller.SPCViewController;
+import udel.cisc637.steven.dao.ProductsDao;
+import udel.cisc637.steven.dao.SPCDao;
+import udel.cisc637.steven.dao.StoresDao;
 import udel.cisc637.steven.model.ProductsModel;
-import udel.cisc637.steven.model.SpcModel;
+import udel.cisc637.steven.model.SPCModel;
 import udel.cisc637.steven.model.StoresModel;
 
 public class ProductsView {
 	
 	public void displayAllProducts(int items, int page) {
 		
-		NavigationView nv = new NavigationView();
-		
 		// TODO Auto-generated method stub
-		ProductsController ProductsController = new ProductsController();
+		ProductsDao ProductsController = new ProductsDao();
 		List<ProductsModel> productsList= ProductsController.getAllProducts(items,page);
 		System.out.print("\n");
 		System.out.println("===Products===");
 		for(ProductsModel e:productsList){
 			System.out.println(e.getProductID()+" "+e.getProductName());
 		}
-		System.out.println("=============");
+		System.out.println("===Page"+page+"===");
 		System.out.print("\n");
 		
-		nv.displayPagingMenu(Main.products, Main.products);
+		int options;
+		
+		if(Main.user.isAdmin()&&Main.CurrentPageNumber>1){
+			System.out.println("===Menu===");
+			System.out.println("1. Next Page.");
+			System.out.println("2. Previous Page");
+			System.out.println("3. See Detail.");
+			System.out.println("4. Add.");
+			System.out.println("5. Delete.");
+			System.out.println("6. Update.");
+			System.out.println("7. Go Back.");
+			System.out.println("8. Quit");
+			options=8;
+			
+			MainMenuView mainMenuView = new MainMenuView();
+			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			
+			ProductsViewController productsViewController = new ProductsViewController();
+			productsViewController.controlAllProductsViewAdmin(choice);
+		}
+		
+		if(Main.user.isAdmin()&&Main.CurrentPageNumber==1){
+			System.out.println("===Menu===");
+			System.out.println("1. Next Page.");
+			System.out.println("2. See Detail.");
+			System.out.println("3. Add.");
+			System.out.println("4. Delete.");
+			System.out.println("5. Update.");
+			System.out.println("6. Go Back.");
+			System.out.println("7. Quit");
+			options=7;
+			
+			MainMenuView mainMenuView = new MainMenuView();
+			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			
+			ProductsViewController productsViewController = new ProductsViewController();
+			productsViewController.controlAllProductsViewAdmin(choice);
+		}
+		
+		
+		if(!Main.user.isAdmin()&&Main.CurrentPageNumber>1){
+			System.out.println("===Menu===");
+			System.out.println("1. Next Page.");
+			System.out.println("2. Previous Page");
+			System.out.println("3. See Detail.");
+			System.out.println("4. Go Back.");
+			System.out.println("5. Quit");
+			options=5;
+			
+			MainMenuView mainMenuView = new MainMenuView();
+			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			
+			ProductsViewController productsViewController = new ProductsViewController();
+			productsViewController.controlAllProductsView(choice);
+		}
+		
+		if(!Main.user.isAdmin()&&Main.CurrentPageNumber==1){
+			System.out.println("===Menu===");
+			System.out.println("1. Next Page.");
+			System.out.println("2. See Detail.");
+			System.out.println("3. Go Back.");
+			System.out.println("4. Quit");
+			options=4;
+			
+			MainMenuView mainMenuView = new MainMenuView();
+			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			
+			ProductsViewController productsViewController = new ProductsViewController();
+			productsViewController.controlAllProductsView(choice);
+		}
+		
+		
 	}
 	
-	public void displayProductFromProductID(String ProductID, int origin) {
-		
-		NavigationView nv = new NavigationView();
+	public void displayProductFromProductID(int ProductID) {
 		
 	    try {
 	    	
-	    	if(ProductID==null){
+	    	if(ProductID< 0){
 				System.out.print("Please Enter ProductID: ");
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				ProductID = br.readLine();
+				ProductID = (Integer.parseInt(br.readLine()));
 			}
 	    	
-	    	ProductsController productsController = new ProductsController();
-			List<ProductsModel> productsList= productsController.getProduct(ProductID);
+	    	ProductsDao productsDao = new ProductsDao();
+			ProductsModel product = productsDao.getProduct(ProductID);
+			
 			System.out.print("\n");
 			System.out.println("===Product===");
-			for(ProductsModel e:productsList){
-				System.out.println("Product Name: "+e.getProductName());
-				System.out.println("Description: "+e.getProductDescritpion());
-				System.out.println("Current Price: "+e.getCurrentPrice());
-				System.out.println("List Price: "+e.getListPrice());
-				System.out.println("Hits: "+e.getHits());
-			}
+			System.out.println("Product Name: "+product.getProductName());
+			System.out.println("Description: "+product.getProductDescritpion());
+			System.out.println("Current Price: "+product.getCurrentPrice());
+			System.out.println("List Price: "+product.getListPrice());
+			System.out.println("Hits: "+product.getHits());
 			System.out.println("=============");
 			System.out.print("\n");
-			if(origin==Main.maincategories){
-				nv.displayNavigationMenu(Main.product);
-			}else if(origin==Main.products){
-				nv.displayPagingMenu(Main.product1, origin);
-			}
 			
+			int options;
+			if(Main.user.isAdmin()){
+				System.out.println("===Menu===");
+				System.out.println("1. Delete");
+				System.out.println("2. Update");
+				System.out.println("3. Go Back.");
+				System.out.println("4. Quit");
+				options=3;
+			}else if(!Main.user.isAdmin()){
+				System.out.println("===Menu===");
+				System.out.println("1. Add Product to Favorites.");
+				System.out.println("2. Go Back.");
+				System.out.println("3. Quit");
+				options=3;
+			}else{
+				System.out.println("===Menu===");
+				System.out.println("1. Go Back.");
+				System.out.println("2. Quit");
+				options=2;
+			}
+			Main.setProductID(ProductID);
+			MainMenuView mainMenuView = new MainMenuView();
+			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			
+			ProductsViewController productsViewController = new ProductsViewController();
+			productsViewController.controlProductFromProductIdView(choice);
 			
 	    } catch (IOException ioe) {
 	    	System.out.println("IO error trying to read your name!");
 	    }
-		
 	}
 	
 	public void displayProductsFromSub(String SubCategoryName) {
 		
-		NavigationView nv = new NavigationView();
-		
 	    try {
-	    	if(SubCategoryName==null)
-	    	{
+	    	if(SubCategoryName==null){
 	    		System.out.print("Please Enter SubCategoryName: ");
 	    		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    		SubCategoryName = br.readLine();
-	    	}
-	    	ProductsController productsController = new ProductsController();
-			List<ProductsModel> productsList= productsController.getProductsFromSub(SubCategoryName);
+		    }
+	    	
+	    	ProductsDao productsDao = new ProductsDao();
+			List<ProductsModel> productsList = productsDao.getProductsFromSub(SubCategoryName);
 			
 			System.out.print("\n");
 			System.out.println("===Products===");
 			for(ProductsModel e: productsList){
-				
 				System.out.println(e.getProductID()+" "+e.getProductName());
 			}
-			System.out.println("====================");
+			System.out.println("===============");
 			System.out.print("\n");
 			
-			nv.displayNavigationMenu(Main.products);
+			Main.setSubCategoryName(SubCategoryName);
+			System.out.println("===Menu===");
+			System.out.println("1. Next Page.");
+			System.out.println("2. Previous Page");
+			System.out.println("3. See Detail.");
+			System.out.println("4. Go Back.");
+			System.out.println("5. Quit");
+			
+			int options=5;
+			
+			MainMenuView mainMenuView = new MainMenuView();
+			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			
+			ProductsViewController productsViewController = new ProductsViewController();
+			productsViewController.controlProductsFromSubView(choice);
 			
 	    } catch (IOException ioe) {
 	    	System.out.println("IO error trying to read your name!");
@@ -104,8 +203,6 @@ public class ProductsView {
 	
 	public void displayProductsFromStoreName(String StoreName, int origin) {
 		
-		NavigationView nv = new NavigationView();
-		
 	    try {
 	    	
 	    	if(StoreName==null){
@@ -114,19 +211,16 @@ public class ProductsView {
 				StoreName = br.readLine();
 			}
 	    	
-	    	ProductsController productsController = new ProductsController();
+	    	ProductsDao productsController = new ProductsDao();
 			List<ProductsModel> productsList= productsController.getProductFromStoreName(StoreName);
 			
 			System.out.print("\n");
 			System.out.println("===Products===");
 			for(ProductsModel e: productsList){
-				
 				System.out.println(e.getProductID()+" "+e.getProductName());
 			}
-			System.out.println("====================");
+			System.out.println("==============");
 			System.out.print("\n");
-			
-			nv.displayPagingMenu(Main.store, Main.stores);
 			
 	    } catch (IOException ioe) {
 	    	System.out.println("IO error trying to read your name!");

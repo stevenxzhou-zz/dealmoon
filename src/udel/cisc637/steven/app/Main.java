@@ -1,53 +1,32 @@
 package udel.cisc637.steven.app;
 
+import udel.cisc637.steven.model.UsersModel;
 import udel.cisc637.steven.view.MainMenuView;
 
 public class Main {
 	
 	// this is for identifying user's access
-	public static boolean isUser=false;
-	public static boolean isAdmin=false;
+	public static UsersModel user=null;
+	
 	
 	// this is for traking the name of the category for going back to the previous menu.
 	public static String MainCategoryName=null;
 	public static String SubCategoryName=null;
 	public static String StoreName=null;
-	//public static String ProductID=null;
+	public static String Email=null;
+	public static int ProductID=-1;
 	
+	// the initial page number is 1
+	public static int CurrentPageNumber=1;
 	
-	// this is for tracking the menu's current state
-	public static final int maincategories=1;
-	public static final int subategories=2;
-	public static final int products=3;
-	public static final int product=4;
-	public static final int product1=41;
-	public static final int stores=5;
-	public static final int store=6;
-	
-	// this if for tracking the paging menu's current page
-	public static int currentpage=1;
-	
+	// allowed input times or it will quit when it gets zero. 
+	public static int AllowedInputTimes=3;
 	
 	public static void main(String[] args){
 		
-		MainMenuView mmv = new MainMenuView();
-		mmv.displayGuestMainMenu();
+		MainMenuView mainMenuView = new MainMenuView();
+		mainMenuView.displayGuestMainMenu();
 
-		}
-		public static boolean isUser() {
-			return isUser;
-		}
-	
-		public static void setUser(boolean isUser) {
-			Main.isUser = isUser;
-		}
-	
-		public static boolean isAdmin() {
-			return isAdmin;
-		}
-	
-		public static void setAdmin(boolean isAdmin) {
-			Main.isAdmin = isAdmin;
 		}
 		public static String getMainCategoryName() {
 			return MainCategoryName;
@@ -62,16 +41,36 @@ public class Main {
 			SubCategoryName = subCategoryName;
 		}
 		
-		public static void setCurrentpage(int currentpage) {
-			Main.currentpage = currentpage;
+		public static int getCurrentPageNumber() {
+			return CurrentPageNumber;
 		}
-		public static int getCurrentpage() {
-			return currentpage;
+		public static void setCurrentPageNumber(int currentPageNumber) {
+			CurrentPageNumber = currentPageNumber;
 		}
 		public static String getStoreName() {
 			return StoreName;
 		}
 		public static void setStoreName(String storeName) {
 			StoreName = storeName;
+		}
+
+		public static UsersModel getUser() {
+			return user;
+		}
+		
+		public static void setUser(UsersModel user) {
+			Main.user = user;
+		}
+		public static int getProductID() {
+			return ProductID;
+		}
+		public static void setProductID(int productID) {
+			ProductID = productID;
+		}
+		public static String getEmail() {
+			return Email;
+		}
+		public static void setEmail(String email) {
+			Email = email;
 		}
 }
