@@ -2,7 +2,8 @@ package udel.cisc637.steven.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import udel.cisc637.steven.app.Main;
+
+import app.start.Start;
 import udel.cisc637.steven.dao.SPCDao;
 import udel.cisc637.steven.model.SPCModel;
 import udel.cisc637.steven.view.MPCView;
@@ -63,10 +64,10 @@ public class SPCViewController {
 			SPCModel spc= new SPCModel();
 			if(subProductName!=null){
 				spc.setSubProductName(subProductName);
-				spc.setMainProductName(Main.MainCategoryName);
+				spc.setMainProductName(Start.MainCategoryName);
 			}
 			spcDao.addSubCategory(spc);
-			spcView.displaySubCategoriesFromMain(Main.MainCategoryName);
+			spcView.displaySubCategoriesFromMain(Start.MainCategoryName);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -83,7 +84,7 @@ public class SPCViewController {
 		try {
 			subProductName = br.readLine();
 			spcDao.deleteSubCategory(subProductName);
-			spcView.displaySubCategoriesFromMain(Main.MainCategoryName);
+			spcView.displaySubCategoriesFromMain(Start.MainCategoryName);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

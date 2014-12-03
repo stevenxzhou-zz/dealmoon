@@ -1,7 +1,8 @@
 package udel.cisc637.steven.view;
 import java.util.List;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.controller.MPCViewController;
 import udel.cisc637.steven.dao.MPCDao;
 import udel.cisc637.steven.model.MPCModel;
@@ -26,7 +27,7 @@ public class MPCView {
 		//SubMenuView subMenuView = new SubMenuView();
 		//subMenuView.displaySubMenu(Main.DisplayMainCategories, origin);
 		
-		if(Main.Admin){
+		if(Start.Admin){
 			// display menus
 			System.out.println("===Menu===");
 			System.out.println("1. Add New MainCategory");
@@ -38,7 +39,7 @@ public class MPCView {
 			// control menus
 			int options=5;
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			MPCViewController mpcViewController = new MPCViewController();
 			mpcViewController.controlMPCViewAdmin(choice);
 		}else{
@@ -51,7 +52,7 @@ public class MPCView {
 			// control menus
 			int options=3;
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			MPCViewController mpcViewController = new MPCViewController();
 			mpcViewController.controlMPCView(choice);
 		}

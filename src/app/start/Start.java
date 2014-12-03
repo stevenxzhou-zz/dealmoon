@@ -1,9 +1,8 @@
-package udel.cisc637.steven.app;
+package app.start;
 
-import udel.cisc637.steven.model.UsersModel;
 import udel.cisc637.steven.view.MainMenuView;
 
-public class Main {
+public class Start {
 
 	// this is for traking the name of the category for going back to the previous menu.
 	public static String MainCategoryName=null;
@@ -68,7 +67,7 @@ public class Main {
 			return login;
 		}
 		public static void setLogin(boolean login) {
-			Main.login = login;
+			Start.login = login;
 		}
 		public static boolean isAdmin() {
 			return Admin;

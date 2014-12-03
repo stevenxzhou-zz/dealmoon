@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.dao.StoresDao;
 import udel.cisc637.steven.model.FavoritesModel;
@@ -16,11 +17,11 @@ import udel.cisc637.steven.view.StoresView;
 public class StoresViewController {
 	
 	public void controlAllStoresView(int choice){
-		if(Main.CurrentPageNumber > 1){
+		if(Start.CurrentPageNumber > 1){
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
-				case 2: previouspage(Main.CurrentPageNumber);
+				case 2: previouspage(Start.CurrentPageNumber);
 					break;
 				case 3: seeStore();
 					break;
@@ -33,7 +34,7 @@ public class StoresViewController {
 			}
 		}else{
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
 				case 2: seeStore();
 					break;
@@ -60,9 +61,9 @@ public class StoresViewController {
 	
 	public void controlStoreViewAdmin(int choice){
 		switch(choice){
-			case 1: deleteStore(Main.StoreName);
+			case 1: deleteStore(Start.StoreName);
 				break;
-			case 2: updateStore(Main.StoreName);
+			case 2: updateStore(Start.StoreName);
 				break;
 			case 3: goBackToStores();// go back to subcategory
 				break;
@@ -89,11 +90,11 @@ public class StoresViewController {
 	}
 	public void controlAllStoresViewAdmin(int choice){
 		
-		if(Main.CurrentPageNumber > 1){
+		if(Start.CurrentPageNumber > 1){
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
-				case 2: previouspage(Main.CurrentPageNumber);
+				case 2: previouspage(Start.CurrentPageNumber);
 					break;
 				case 3: seeStore();
 					break;
@@ -112,7 +113,7 @@ public class StoresViewController {
 			}
 		}else{
 			switch(choice){
-			case 1: nextpage(Main.CurrentPageNumber);
+			case 1: nextpage(Start.CurrentPageNumber);
 				break;
 			case 2: seeStore();
 				break;
@@ -135,13 +136,13 @@ public class StoresViewController {
 	public void goBackToMainMenu(){
 		
 		MainMenuView mainMenuView = new MainMenuView();
-		mainMenuView.displayMainMenu(Main.UserName);
+		mainMenuView.displayMainMenu(Start.UserName);
 	}
 	
 	public void goBackToStores(){
 		
 		StoresView storesView = new StoresView();
-		storesView.displayAllStores(5, Main.CurrentPageNumber);
+		storesView.displayAllStores(5, Start.CurrentPageNumber);
 	}
 	
 	public void seeStore(){
@@ -153,23 +154,23 @@ public class StoresViewController {
 	public void nextpage(int currentPage){
 		
 		StoresView storesView = new StoresView();
-		Main.setCurrentPageNumber(Main.CurrentPageNumber+1);
-		storesView.displayAllStores(5, Main.CurrentPageNumber);
+		Start.setCurrentPageNumber(Start.CurrentPageNumber+1);
+		storesView.displayAllStores(5, Start.CurrentPageNumber);
 	}
 	
 	public void previouspage(int currentPage){
 
 		StoresView storesView = new StoresView();
-		Main.setCurrentPageNumber(Main.CurrentPageNumber-1);
-		storesView.displayAllStores(5, Main.CurrentPageNumber);
+		Start.setCurrentPageNumber(Start.CurrentPageNumber-1);
+		storesView.displayAllStores(5, Start.CurrentPageNumber);
 	}
 	
 	public void addStoreToFavorites(){
 
 		FavoritesDao favoritesDao = new FavoritesDao();
 		FavoritesModel favorite = new FavoritesModel();
-		favorite.setEmail(Main.getEmail());
-		favorite.setStoreName(Main.getStoreName());
+		favorite.setEmail(Start.getEmail());
+		favorite.setStoreName(Start.getStoreName());
 		java.util.Date today = new java.util.Date();
 		favorite.setAddDate(new java.sql.Date(today.getTime()));
 		favoritesDao.addFavorite(favorite);
@@ -209,7 +210,7 @@ public class StoresViewController {
 				storesDao.addStore(store);
 			}
 			
-			storesView.displayAllStores(5, Main.CurrentPageNumber);
+			storesView.displayAllStores(5, Start.CurrentPageNumber);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -240,7 +241,7 @@ public class StoresViewController {
 		}else{
 			System.out.print("Already Exist! ");
 		}
-		storesView.displayAllStores(5, Main.CurrentPageNumber);
+		storesView.displayAllStores(5, Start.CurrentPageNumber);
 	}
 	
 	private void updateStore(String storeName) {
@@ -273,7 +274,7 @@ public class StoresViewController {
 				System.out.print("Wrong storeName! ");
 			}
 			
-			storesView.displayAllStores(5, Main.CurrentPageNumber);
+			storesView.displayAllStores(5, Start.CurrentPageNumber);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

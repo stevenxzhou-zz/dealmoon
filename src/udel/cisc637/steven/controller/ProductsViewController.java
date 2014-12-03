@@ -3,7 +3,8 @@ package udel.cisc637.steven.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import udel.cisc637.steven.app.Main;
+
+import app.start.Start;
 import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.dao.ProductsDao;
 import udel.cisc637.steven.model.FavoritesModel;
@@ -17,11 +18,11 @@ public class ProductsViewController {
 	
 	public void controlProductsFromSubView(int choice){
 		
-		if(Main.CurrentPageNumber > 1){
+		if(Start.CurrentPageNumber > 1){
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
-				case 2: previouspage(Main.CurrentPageNumber);
+				case 2: previouspage(Start.CurrentPageNumber);
 					break;
 				case 3: seeProduct();
 					break;
@@ -34,7 +35,7 @@ public class ProductsViewController {
 			}
 		}else{
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
 				case 2: seeProduct();
 					break;
@@ -50,11 +51,11 @@ public class ProductsViewController {
 	
 	public void controlAllProductsView(int choice){
 		
-		if(Main.CurrentPageNumber > 1){
+		if(Start.CurrentPageNumber > 1){
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
-				case 2: previouspage(Main.CurrentPageNumber);
+				case 2: previouspage(Start.CurrentPageNumber);
 					break;
 				case 3: seeProduct();
 					break;
@@ -67,7 +68,7 @@ public class ProductsViewController {
 			}
 		}else{
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
 				case 2: seeProduct();
 					break;
@@ -83,11 +84,11 @@ public class ProductsViewController {
 	
 	public void controlAllProductsViewAdmin(int choice){
 		
-		if(Main.CurrentPageNumber > 1){
+		if(Start.CurrentPageNumber > 1){
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
-				case 2: previouspage(Main.CurrentPageNumber);
+				case 2: previouspage(Start.CurrentPageNumber);
 					break;
 				case 3: seeProduct();
 					break;
@@ -106,7 +107,7 @@ public class ProductsViewController {
 			}
 		}else{
 			switch(choice){
-			case 1: nextpage(Main.CurrentPageNumber);
+			case 1: nextpage(Start.CurrentPageNumber);
 				break;
 			case 2: seeProduct();
 				break;
@@ -129,11 +130,11 @@ public class ProductsViewController {
 	
 
 	public void controlProductFromProductIdView(int choice){
-		if(Main.Admin){
+		if(Start.Admin){
 			switch(choice){
-			case 1: deleteProduct(Main.ProductID);
+			case 1: deleteProduct(Start.ProductID);
 				break;
-			case 2: updateProduct(Main.ProductID);
+			case 2: updateProduct(Start.ProductID);
 				break;
 			case 3: goBackToProducts();// go back to subcategory
 				break;
@@ -143,7 +144,7 @@ public class ProductsViewController {
 				System.out.println("No Such Choice!");
 			
 			}
-		}else if(!Main.Admin&&Main.login){
+		}else if(!Start.Admin&&Start.login){
 			switch(choice){
 			case 1: addProductToFavorites();
 				break;
@@ -177,13 +178,13 @@ public class ProductsViewController {
 	public void goBackToProducts(){
 		
 		ProductsView productsView = new ProductsView();
-		if(Main.SubCategoryName!=null)
+		if(Start.SubCategoryName!=null)
 		{
-			productsView.displayProductsFromSub(Main.getSubCategoryName());
+			productsView.displayProductsFromSub(Start.getSubCategoryName());
 			
 		}else
 		{
-			productsView.displayAllProducts(5, Main.CurrentPageNumber);
+			productsView.displayAllProducts(5, Start.CurrentPageNumber);
 		}
 		
 	}
@@ -191,28 +192,28 @@ public class ProductsViewController {
 	public void goBackToSubCategories(){
 		
 		SPCView spcView = new SPCView();
-		spcView.displaySubCategoriesFromMain(Main.MainCategoryName);
+		spcView.displaySubCategoriesFromMain(Start.MainCategoryName);
 	}
 	
 	public void goBackToMainMenu(){
 		
 		MainMenuView mainMenuView = new MainMenuView();
-		mainMenuView.displayMainMenu(Main.getUserName());
-		Main.SubCategoryName=null;
+		mainMenuView.displayMainMenu(Start.getUserName());
+		Start.SubCategoryName=null;
 	}
 	
 	public void nextpage(int currentPage){
 		
 		ProductsView productsView = new ProductsView();
-		Main.setCurrentPageNumber(Main.CurrentPageNumber+1);
-		productsView.displayAllProducts(5, Main.CurrentPageNumber);
+		Start.setCurrentPageNumber(Start.CurrentPageNumber+1);
+		productsView.displayAllProducts(5, Start.CurrentPageNumber);
 	}
 	
 	public void previouspage(int currentPage){
 
 		ProductsView productsView = new ProductsView();
-		Main.setCurrentPageNumber(Main.CurrentPageNumber-1);
-		productsView.displayAllProducts(5, Main.CurrentPageNumber);
+		Start.setCurrentPageNumber(Start.CurrentPageNumber-1);
+		productsView.displayAllProducts(5, Start.CurrentPageNumber);
 	}
 	
 	public void addProductToFavorites(){
@@ -220,8 +221,8 @@ public class ProductsViewController {
 		FavoritesDao favoritesDao = new FavoritesDao();
 		FavoritesModel favorite = new FavoritesModel();
 		favorite.setFavID(0);
-		favorite.setEmail(Main.getEmail());
-		favorite.setProductID(Main.getProductID());
+		favorite.setEmail(Start.getEmail());
+		favorite.setProductID(Start.getProductID());
 		java.util.Date today = new java.util.Date();
 		favorite.setAddDate(new java.sql.Date(today.getTime()));
 		favoritesDao.addFavorite(favorite);
@@ -274,7 +275,7 @@ public class ProductsViewController {
 				productsDao.addProduct(product);
 			}
 			
-			productsView.displayAllProducts(5, Main.CurrentPageNumber);
+			productsView.displayAllProducts(5, Start.CurrentPageNumber);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -310,7 +311,7 @@ public class ProductsViewController {
 		}else{
 			System.out.print("Already Exist! ");
 		}
-		productsView.displayAllProducts(5, Main.CurrentPageNumber);
+		productsView.displayAllProducts(5, Start.CurrentPageNumber);
 	}
 	
 	private void updateProduct(int productID) {
@@ -355,7 +356,7 @@ public class ProductsViewController {
 				System.out.print("Wrong productID! ");
 			}
 			
-			productsView.displayAllProducts(5, Main.CurrentPageNumber);
+			productsView.displayAllProducts(5, Start.CurrentPageNumber);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

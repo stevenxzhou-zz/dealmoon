@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.view.FavoritesView;
 import udel.cisc637.steven.view.MainMenuView;
@@ -28,13 +29,13 @@ public class FavoritesViewController {
 	}
 	
 	public void goBackToProduct(){
-		if(Main.ProductID > 0){
+		if(Start.ProductID > 0){
 			ProductsView productsView = new ProductsView();
-			productsView.displayProductFromProductID(Main.getProductID());
-			Main.ProductID=-1;
+			productsView.displayProductFromProductID(Start.getProductID());
+			Start.ProductID=-1;
 		}else{
 			MainMenuView mainMenuView = new MainMenuView();
-			mainMenuView.displayMainMenu(Main.UserName);
+			mainMenuView.displayMainMenu(Start.UserName);
 		}
 		
 	}
@@ -46,7 +47,7 @@ public class FavoritesViewController {
 			System.out.print("Please Enter StoreName: ");
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			String StoreName = br.readLine();
-			favoritesDao.deleteFavoriteStore(Main.getEmail(), StoreName);
+			favoritesDao.deleteFavoriteStore(Start.getEmail(), StoreName);
 			favoritesView.displayAllFavorites();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -62,7 +63,7 @@ public class FavoritesViewController {
 			System.out.print("Please Enter ProductID: ");
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			String ProductID = br.readLine();
-			favoritesDao.deleteFavoriteProduct(Main.getEmail(), ProductID);
+			favoritesDao.deleteFavoriteProduct(Start.getEmail(), ProductID);
 			favoritesView.displayAllFavorites();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

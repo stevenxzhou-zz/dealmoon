@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.controller.MainMenuController;
 import udel.cisc637.steven.model.UsersModel;
 
@@ -13,12 +14,12 @@ public class MainMenuView {
 	MainMenuController mainMenuController = new MainMenuController();
 	
 	public void displayMainMenu(String UserName){
-		Main.SubCategoryName=null;
-		Main.ProductID=-1;
+		Start.SubCategoryName=null;
+		Start.ProductID=-1;
 		
-		if(Main.Admin){
+		if(Start.Admin){
 			displayAdminMainMenu(UserName);
-		}else if(Main.login){
+		}else if(Start.login){
 			displayUserMainMenu(UserName);
 		}else{
 			displayGuestMainMenu();
@@ -35,7 +36,7 @@ public class MainMenuView {
 		System.out.println("5. Quit");
     	System.out.print("\n");
     	
-		int choice=readchoice(Main.AllowedInputTimes,5);
+		int choice=readchoice(Start.AllowedInputTimes,5);
 	    mainMenuController.guestMenu(choice); 
 	}
 	
@@ -50,7 +51,7 @@ public class MainMenuView {
 		System.out.println("6. Quit");
 		System.out.print("\n");
 
-		int choice=readchoice(Main.AllowedInputTimes,6);
+		int choice=readchoice(Start.AllowedInputTimes,6);
 	    mainMenuController.userMenu(choice);
 	}
 	
@@ -65,7 +66,7 @@ public class MainMenuView {
 		System.out.println("6. Quit");
 		System.out.print("\n");
 		
-		int choice=readchoice(Main.AllowedInputTimes,6);
+		int choice=readchoice(Start.AllowedInputTimes,6);
 	    mainMenuController.adminMenu(choice);
 	}
 	

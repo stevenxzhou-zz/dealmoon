@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.dao.UsersDao;
 import udel.cisc637.steven.model.UsersModel;
 import udel.cisc637.steven.view.MainMenuView;
@@ -15,11 +16,11 @@ public class UsersViewController {
 	
 	public void controlAllUsersView(int choice){
 		
-		if(Main.CurrentPageNumber > 1){
+		if(Start.CurrentPageNumber > 1){
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
-				case 2: previouspage(Main.CurrentPageNumber);
+				case 2: previouspage(Start.CurrentPageNumber);
 					break;
 				case 3: seeUser();
 					break;
@@ -32,7 +33,7 @@ public class UsersViewController {
 			}
 		}else{
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
 				case 2: seeUser();
 					break;
@@ -48,11 +49,11 @@ public class UsersViewController {
 	
 	public void controlAllUsersViewAdmin(int choice){
 		
-		if(Main.CurrentPageNumber > 1){
+		if(Start.CurrentPageNumber > 1){
 			switch(choice){
-				case 1: nextpage(Main.CurrentPageNumber);
+				case 1: nextpage(Start.CurrentPageNumber);
 					break;
-				case 2: previouspage(Main.CurrentPageNumber);
+				case 2: previouspage(Start.CurrentPageNumber);
 					break;
 				case 3: seeUser();
 					break;
@@ -71,7 +72,7 @@ public class UsersViewController {
 			}
 		}else{
 			switch(choice){
-			case 1: nextpage(Main.CurrentPageNumber);
+			case 1: nextpage(Start.CurrentPageNumber);
 				break;
 			case 2: seeUser();
 				break;
@@ -93,11 +94,11 @@ public class UsersViewController {
 
 	
 	public void controlUserFromEmailView(int choice){
-		if(Main.Admin){
+		if(Start.Admin){
 			switch(choice){
-			case 1: deleteUser(Main.Email);
+			case 1: deleteUser(Start.Email);
 				break;
-			case 2: updateUser(Main.Email);
+			case 2: updateUser(Start.Email);
 				break;
 			case 3: goBackToUsers();// go back to subcategory
 				break;
@@ -129,27 +130,27 @@ public class UsersViewController {
 	public void goBackToUsers(){
 		
 		UsersView usersView = new UsersView();
-		usersView.displayAllUsers(5, Main.CurrentPageNumber);
+		usersView.displayAllUsers(5, Start.CurrentPageNumber);
 	}
 
 	public void goBackToMainMenu(){
 		
 		MainMenuView mainMenuView = new MainMenuView();
-		mainMenuView.displayMainMenu(Main.getUserName());
+		mainMenuView.displayMainMenu(Start.getUserName());
 	}
 	
 	public void nextpage(int currentPage){
 		
 		UsersView usersView = new UsersView();
-		Main.setCurrentPageNumber(Main.CurrentPageNumber+1);
-		usersView.displayAllUsers(5, Main.CurrentPageNumber);
+		Start.setCurrentPageNumber(Start.CurrentPageNumber+1);
+		usersView.displayAllUsers(5, Start.CurrentPageNumber);
 	}
 	
 	public void previouspage(int currentPage){
 
 		UsersView usersView = new UsersView();
-		Main.setCurrentPageNumber(Main.CurrentPageNumber-1);
-		usersView.displayAllUsers(5, Main.CurrentPageNumber);
+		Start.setCurrentPageNumber(Start.CurrentPageNumber-1);
+		usersView.displayAllUsers(5, Start.CurrentPageNumber);
 	}
 
 	private void addUser(String Email) {
@@ -197,7 +198,7 @@ public class UsersViewController {
 				usersDao.addUser(user);
 			}
 			
-			usersView.displayAllUsers(5, Main.CurrentPageNumber);
+			usersView.displayAllUsers(5, Start.CurrentPageNumber);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -234,7 +235,7 @@ public class UsersViewController {
 		}else{
 			System.out.print("Already Exist! ");
 		}
-		usersView.displayAllUsers(5, Main.CurrentPageNumber);
+		usersView.displayAllUsers(5, Start.CurrentPageNumber);
 	}
 	
 	private void updateUser(String Email) {
@@ -278,7 +279,7 @@ public class UsersViewController {
 				System.out.print("Wrong Email! ");
 			}
 			
-			usersView.displayAllUsers(5, Main.CurrentPageNumber);
+			usersView.displayAllUsers(5, Start.CurrentPageNumber);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

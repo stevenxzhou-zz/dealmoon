@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.controller.UsersViewController;
 import udel.cisc637.steven.dao.UsersDao;
 import udel.cisc637.steven.model.UsersModel;
@@ -27,7 +28,7 @@ public class UsersView {
 		
 		int options;
 		
-		if(Main.Admin&&Main.CurrentPageNumber>1){
+		if(Start.Admin&&Start.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -40,13 +41,13 @@ public class UsersView {
 			options=8;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			UsersViewController usersViewController = new UsersViewController();
 			usersViewController.controlAllUsersViewAdmin(choice);
 		}
 		
-		if(Main.Admin&&Main.CurrentPageNumber==1){
+		if(Start.Admin&&Start.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -58,14 +59,14 @@ public class UsersView {
 			options=7;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			UsersViewController usersViewController = new UsersViewController();
 			usersViewController.controlAllUsersViewAdmin(choice);
 		}
 		
 		
-		if(!Main.Admin&&Main.CurrentPageNumber>1){
+		if(!Start.Admin&&Start.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -75,13 +76,13 @@ public class UsersView {
 			options=5;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			UsersViewController usersViewController = new UsersViewController();
 			usersViewController.controlAllUsersView(choice);
 		}
 		
-		if(!Main.Admin&&Main.CurrentPageNumber==1){
+		if(!Start.Admin&&Start.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -90,7 +91,7 @@ public class UsersView {
 			options=4;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			UsersViewController usersViewController = new UsersViewController();
 			usersViewController.controlAllUsersView(choice);
@@ -119,7 +120,7 @@ public class UsersView {
 			System.out.print("\n");
 			
 			int options;
-			if(Main.Admin){
+			if(Start.Admin){
 				System.out.println("===Menu===");
 				System.out.println("1. Delete");
 				System.out.println("2. Update");
@@ -132,9 +133,9 @@ public class UsersView {
 				System.out.println("2. Quit");
 				options=2;
 			}
-			Main.setEmail(Email);
+			Start.setEmail(Email);
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			UsersViewController usersViewController = new UsersViewController();
 			usersViewController.controlUserFromEmailView(choice);
@@ -171,7 +172,7 @@ public class UsersView {
 	    }
 		
 		userDao.login(user);
-		mmv.displayMainMenu(Main.getUserName());
+		mmv.displayMainMenu(Start.getUserName());
 	}
 	
 	public void logout(){

@@ -7,7 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.db.MysqlConnector;
 import udel.cisc637.steven.model.ProductsModel;
 
@@ -94,7 +95,7 @@ public class ProductsDao {
 				productsModel.setProductName(rs.getString("ProductName"));
 				productsList.add(productsModel);
 			}
-			Main.setSubCategoryName(SubCategoryName);
+			Start.setSubCategoryName(SubCategoryName);
 		
 			
 		} catch (SQLException e) {
@@ -120,7 +121,7 @@ public class ProductsDao {
 				productsModel.setProductName(rs.getString("ProductName"));
 				productsList.add(productsModel);
 			}
-			Main.setStoreName(StoreName);
+			Start.setStoreName(StoreName);
 			return productsList;
 			
 		} catch (SQLException e) {

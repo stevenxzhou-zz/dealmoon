@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.dao.MPCDao;
 import udel.cisc637.steven.model.MPCModel;
 import udel.cisc637.steven.view.MPCView;
@@ -50,7 +51,7 @@ public class MPCViewController {
 	
 	public void goBack(){
 		MainMenuView mainMenuView = new MainMenuView();
-		mainMenuView.displayMainMenu(Main.getUserName());
+		mainMenuView.displayMainMenu(Start.getUserName());
 	}
 	
 	public void AddMainCategory(){

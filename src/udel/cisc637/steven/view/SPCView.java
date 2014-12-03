@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.controller.MPCViewController;
 import udel.cisc637.steven.controller.SPCViewController;
 import udel.cisc637.steven.dao.SPCDao;
@@ -31,8 +32,8 @@ public class SPCView {
 				}
 				System.out.println("===================");
 				System.out.print("\n");
-				Main.setMainCategoryName(MainCategoryName);
-				if(Main.Admin){
+				Start.setMainCategoryName(MainCategoryName);
+				if(Start.Admin){
 					// display menus
 					System.out.println("===Menu===");
 					System.out.println("1. Add New MainCategory");
@@ -44,7 +45,7 @@ public class SPCView {
 					// control menus
 					int options=5;
 					MainMenuView mainMenuView = new MainMenuView();
-					int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+					int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 					MPCViewController mpcViewController = new MPCViewController();
 					mpcViewController.controlMPCViewAdmin(choice);
 				}else{
@@ -57,7 +58,7 @@ public class SPCView {
 					// control menus
 					int options=3;
 					MainMenuView mainMenuView = new MainMenuView();
-					int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+					int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 					
 					SPCViewController spcViewController = new SPCViewController();
 					spcViewController.controlSPCView(choice);

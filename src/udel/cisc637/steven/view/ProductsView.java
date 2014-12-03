@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.controller.ProductsViewController;
 import udel.cisc637.steven.dao.ProductsDao;
 import udel.cisc637.steven.model.ProductsModel;
@@ -27,7 +28,7 @@ public class ProductsView {
 		
 		int options;
 		
-		if(Main.Admin&&Main.CurrentPageNumber>1){
+		if(Start.Admin&&Start.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -40,13 +41,13 @@ public class ProductsView {
 			options=8;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			ProductsViewController productsViewController = new ProductsViewController();
 			productsViewController.controlAllProductsViewAdmin(choice);
 		}
 		
-		if(Main.Admin&&Main.CurrentPageNumber==1){
+		if(Start.Admin&&Start.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -58,14 +59,14 @@ public class ProductsView {
 			options=7;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			ProductsViewController productsViewController = new ProductsViewController();
 			productsViewController.controlAllProductsViewAdmin(choice);
 		}
 		
 		
-		if(!Main.Admin&&Main.CurrentPageNumber>1){
+		if(!Start.Admin&&Start.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -75,13 +76,13 @@ public class ProductsView {
 			options=5;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			ProductsViewController productsViewController = new ProductsViewController();
 			productsViewController.controlAllProductsView(choice);
 		}
 		
-		if(!Main.Admin&&Main.CurrentPageNumber==1){
+		if(!Start.Admin&&Start.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -90,7 +91,7 @@ public class ProductsView {
 			options=4;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			ProductsViewController productsViewController = new ProductsViewController();
 			productsViewController.controlAllProductsView(choice);
@@ -121,14 +122,14 @@ public class ProductsView {
 			System.out.print("\n");
 			
 			int options;
-			if(Main.login&&Main.Admin){
+			if(Start.login&&Start.Admin){
 				System.out.println("===Menu===");
 				System.out.println("1. Delete");
 				System.out.println("2. Update");
 				System.out.println("3. Go Back.");
 				System.out.println("4. Quit");
 				options=4;
-			}else if(Main.login&&!Main.Admin){
+			}else if(Start.login&&!Start.Admin){
 				System.out.println("===Menu===");
 				System.out.println("1. Add Product to Favorites.");
 				System.out.println("2. Go Back.");
@@ -140,9 +141,9 @@ public class ProductsView {
 				System.out.println("2. Quit");
 				options=2;
 			}
-			Main.setProductID(ProductID);
+			Start.setProductID(ProductID);
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			ProductsViewController productsViewController = new ProductsViewController();
 			productsViewController.controlProductFromProductIdView(choice);
@@ -173,8 +174,8 @@ public class ProductsView {
 			System.out.print("\n");
 			
 			int options;
-			if(Main.CurrentPageNumber>1){
-				Main.setSubCategoryName(SubCategoryName);
+			if(Start.CurrentPageNumber>1){
+				Start.setSubCategoryName(SubCategoryName);
 				System.out.println("===Menu===");
 				System.out.println("1. Next Page.");
 				System.out.println("2. Previous Page");
@@ -184,7 +185,7 @@ public class ProductsView {
 				
 				options=5;
 			}else{
-				Main.setSubCategoryName(SubCategoryName);
+				Start.setSubCategoryName(SubCategoryName);
 				System.out.println("===Menu===");
 				System.out.println("1. Next Page.");
 				System.out.println("2. See Detail.");
@@ -196,7 +197,7 @@ public class ProductsView {
 			
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			ProductsViewController productsViewController = new ProductsViewController();
 			productsViewController.controlProductsFromSubView(choice);

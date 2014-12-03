@@ -2,7 +2,8 @@ package udel.cisc637.steven.view;
 
 import java.util.List;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.controller.FavoritesViewController;
 import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.dao.ProductsDao;
@@ -13,7 +14,7 @@ public class FavoritesView {
 	public void displayAllFavorites() {
 		// TODO Auto-generated method stub
 		FavoritesDao favoritesDao = new FavoritesDao();
-		List<FavoritesModel> favoritesList= favoritesDao.getFavoritesByEmail(Main.getEmail());
+		List<FavoritesModel> favoritesList= favoritesDao.getFavoritesByEmail(Start.getEmail());
 		ProductsDao productsController = new ProductsDao();
 		System.out.print("\n");
 		System.out.println("===Favorites===");
@@ -46,7 +47,7 @@ public class FavoritesView {
 		int options=4;
 		
 		MainMenuView mainMenuView = new MainMenuView();
-		int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+		int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 		
 		FavoritesViewController favoritesViewController = new FavoritesViewController();
 		favoritesViewController.controlAllFavoritesView(choice);

@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.controller.StoresViewController;
 import udel.cisc637.steven.dao.StoresDao;
 import udel.cisc637.steven.model.StoresModel;
@@ -26,7 +27,7 @@ public class StoresView {
 		
 		int options=0;
 		
-		if(!Main.Admin&&Main.CurrentPageNumber>1){
+		if(!Start.Admin&&Start.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -35,13 +36,13 @@ public class StoresView {
 			System.out.println("5. Quit");
 			options=5;
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			StoresViewController storesViewController = new StoresViewController();
 			storesViewController.controlAllStoresView(choice);
 		}
 		
-		if(!Main.Admin&&Main.CurrentPageNumber==1){
+		if(!Start.Admin&&Start.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Store by StoreName.");
@@ -49,13 +50,13 @@ public class StoresView {
 			System.out.println("4. Quit");
 			options=4;
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			StoresViewController storesViewController = new StoresViewController();
 			storesViewController.controlAllStoresView(choice);
 		}
 		
-		if(Main.Admin&&Main.CurrentPageNumber>1){
+		if(Start.Admin&&Start.CurrentPageNumber>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -68,13 +69,13 @@ public class StoresView {
 			options=8;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			StoresViewController storesViewController = new StoresViewController();
 			storesViewController.controlAllStoresViewAdmin(choice);
 		}
 		
-		if(Main.Admin&&Main.CurrentPageNumber==1){
+		if(Start.Admin&&Start.CurrentPageNumber==1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Store by StoreName.");
@@ -86,7 +87,7 @@ public class StoresView {
 			options=7;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			StoresViewController storesViewController = new StoresViewController();
 			storesViewController.controlAllStoresViewAdmin(choice);
@@ -111,30 +112,30 @@ public class StoresView {
 			System.out.println("===========");
 			System.out.print("\n");
 			
-			if(Main.Admin){
+			if(Start.Admin){
 				System.out.println("===Menu===");
 				System.out.println("1. delete");
 				System.out.println("2. update");
 				System.out.println("3. Go Back.");
 				System.out.println("4. Quit");
-				Main.setStoreName(StoreName);
+				Start.setStoreName(StoreName);
 
 				int options=4;
 				MainMenuView mainMenuView = new MainMenuView();
-				int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+				int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 				
 				StoresViewController storesViewController = new StoresViewController();
 				storesViewController.controlStoreViewAdmin(choice);
-			}else if(Main.login){
+			}else if(Start.login){
 				System.out.println("===Menu===");
 				System.out.println("1. Add store to favorites");
 				System.out.println("2. Go Back.");
 				System.out.println("3. Quit");
-				Main.setStoreName(StoreName);
+				Start.setStoreName(StoreName);
 				
 				int options=3;
 				MainMenuView mainMenuView = new MainMenuView();
-				int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+				int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 				
 				StoresViewController storesViewController = new StoresViewController();
 				storesViewController.controlStoreViewUser(choice);
@@ -142,11 +143,11 @@ public class StoresView {
 				System.out.println("===Menu===");
 				System.out.println("1. Go Back.");
 				System.out.println("2. Quit");
-				Main.setStoreName(StoreName);
+				Start.setStoreName(StoreName);
 
 				int options=2;
 				MainMenuView mainMenuView = new MainMenuView();
-				int choice=mainMenuView.readchoice(Main.AllowedInputTimes, options);
+				int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 				
 				StoresViewController storesViewController = new StoresViewController();
 				storesViewController.controlStoreView(choice);

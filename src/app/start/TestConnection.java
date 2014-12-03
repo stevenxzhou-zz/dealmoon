@@ -1,4 +1,4 @@
-package udel.cisc637.steven.app;
+package app.start;
 
 import udel.cisc637.steven.db.MysqlConnector;
 

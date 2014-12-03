@@ -7,7 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import udel.cisc637.steven.app.Main;
+import app.start.Start;
+
 import udel.cisc637.steven.db.MysqlConnector;
 import udel.cisc637.steven.model.UsersModel;
 
@@ -122,10 +123,10 @@ public class UsersDao {
 			
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()){
-				Main.setAdmin(rs.getBoolean("Admin"));
-				Main.setLogin(true);
-				Main.setUserName(rs.getString("Name"));
-				Main.setEmail(rs.getString("Email"));
+				Start.setAdmin(rs.getBoolean("Admin"));
+				Start.setLogin(true);
+				Start.setUserName(rs.getString("Name"));
+				Start.setEmail(rs.getString("Email"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -134,7 +135,7 @@ public class UsersDao {
 	}
 	
 	public void logout(){
-		Main.setAdmin(false);
-		Main.setLogin(false);
+		Start.setAdmin(false);
+		Start.setLogin(false);
 	}
 }
