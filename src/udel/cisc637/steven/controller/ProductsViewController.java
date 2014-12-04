@@ -1,9 +1,5 @@
 package udel.cisc637.steven.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import app.start.Start;
 import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.dao.ProductsDao;
@@ -13,12 +9,13 @@ import udel.cisc637.steven.view.FavoritesView;
 import udel.cisc637.steven.view.MainMenuView;
 import udel.cisc637.steven.view.ProductsView;
 import udel.cisc637.steven.view.SPCView;
+import udel.cisc637.steven.view.StoresView;
 
 public class ProductsViewController {
 	
-	public void controlProductsFromSubView(int choice){
-		
-		if(Start.CurrentPageNumber > 1){
+	public void controlProductsFromSubView(int choice, int maxpages, int maxitems){
+
+		if(Start.CurrentPageNumber>1&&Start.CurrentPageNumber!=maxpages){
 			switch(choice){
 				case 1: nextpage(Start.CurrentPageNumber);
 					break;
@@ -31,20 +28,96 @@ public class ProductsViewController {
 				case 5: System.exit(-1);
 					break;
 				default:
-					System.out.println("No Such Choice!");
+					goBackToProducts();
 			}
-		}else{
+		}
+		else if(maxpages>1){
+			switch(choice){
+			case 1: nextpage(Start.CurrentPageNumber);
+				break;
+			case 2: seeProduct();
+				break;
+			case 3: goBackToSubCategories();
+				break;
+			case 4: System.exit(-1);
+				break;
+			default:
+				goBackToProducts();
+			}
+		}
+		else if(maxitems>1){
+			switch(choice){
+			case 1: seeProduct();
+				break;
+			case 2: goBackToSubCategories();
+				break;
+			case 3: System.exit(-1);
+				break;
+			default:
+				goBackToProducts();
+			}
+		}else {
+			switch(choice){
+			case 1: goBackToSubCategories();
+				break;
+			case 2: System.exit(-1);
+				break;
+			default:
+				goBackToProducts();
+			}
+		}
+	}
+	public void controlProductsFromStoreView(int choice, int maxpages, int maxitems){
+
+		if(Start.CurrentPageNumber>1&&Start.CurrentPageNumber!=maxpages){
 			switch(choice){
 				case 1: nextpage(Start.CurrentPageNumber);
 					break;
-				case 2: seeProduct();
+				case 2: previouspage(Start.CurrentPageNumber);
 					break;
-				case 3: goBackToSubCategories();
+				case 3: seeProduct();
 					break;
-				case 4: System.exit(-1);
+				case 4: goBackToStore();
+					break;
+				case 5: System.exit(-1);
 					break;
 				default:
-					System.out.println("No Such Choice!");
+					goBackToProducts();
+			}
+		}
+		else if(maxpages>1){
+			switch(choice){
+			case 1: nextpage(Start.CurrentPageNumber);
+				break;
+			case 2: seeProduct();
+				break;
+			case 3: goBackToStore();
+				break;
+			case 4: System.exit(-1);
+				break;
+			default:
+				goBackToProducts();
+			}
+		}
+		else if(maxitems>1){
+			switch(choice){
+			case 1: seeProduct();
+				break;
+			case 2: goBackToStore();
+				break;
+			case 3: System.exit(-1);
+				break;
+			default:
+				goBackToProducts();
+			}
+		}else {
+			switch(choice){
+			case 1: goBackToStore();
+				break;
+			case 2: System.exit(-1);
+				break;
+			default:
+				goBackToProducts();
 			}
 		}
 	}
@@ -64,7 +137,7 @@ public class ProductsViewController {
 				case 5: System.exit(-1);
 					break;
 				default:
-					System.out.println("No Such Choice!");
+					goBackToProducts();
 			}
 		}else{
 			switch(choice){
@@ -77,7 +150,7 @@ public class ProductsViewController {
 				case 4: System.exit(-1);
 					break;
 				default:
-					System.out.println("No Such Choice!");
+					goBackToProducts();
 			}
 		}
 	}
@@ -103,7 +176,7 @@ public class ProductsViewController {
 				case 8: System.exit(-1);
 					break;
 				default:
-					System.out.println("No Such Choice!");
+					goBackToProducts();
 			}
 		}else{
 			switch(choice){
@@ -122,7 +195,7 @@ public class ProductsViewController {
 			case 7: System.exit(-1);
 				break;
 			default:
-				System.out.println("No Such Choice!");
+				goBackToProducts();
 		}
 		}
 	}
@@ -141,7 +214,7 @@ public class ProductsViewController {
 			case 4: System.exit(-1);
 				break;
 			default: 
-				System.out.println("No Such Choice!");
+				goBackToProducts();
 			
 			}
 		}else if(!Start.Admin&&Start.login){
@@ -153,7 +226,7 @@ public class ProductsViewController {
 			case 3: System.exit(-1);
 				break;
 			default: 
-				System.out.println("No Such Choice!");
+				goBackToProducts();
 			
 			}
 		}else{
@@ -163,7 +236,7 @@ public class ProductsViewController {
 			case 2: System.exit(-1);
 				break;
 			default: 
-				System.out.println("No Such Choice!");
+				goBackToProducts();
 			}
 		}
 		
@@ -182,8 +255,11 @@ public class ProductsViewController {
 		{
 			productsView.displayProductsFromSub(Start.getSubCategoryName());
 			
-		}else
-		{
+		}else if(Start.StoreName!=null){
+			
+			productsView.displayProductsFromStoreName(Start.getStoreName());
+		}else{
+		
 			productsView.displayAllProducts(5, Start.CurrentPageNumber);
 		}
 		
@@ -201,6 +277,19 @@ public class ProductsViewController {
 		mainMenuView.displayMainMenu(Start.getUserName());
 		Start.SubCategoryName=null;
 	}
+
+	public void goBackToStores(){
+		
+		StoresView storesView = new StoresView();
+		storesView.displayAllStores(5, Start.CurrentPageNumber);
+	}
+	
+	public void goBackToStore(){
+		
+		StoresView storesView = new StoresView();
+		storesView.displayStoreFromStoreName(Start.StoreName);
+	}
+	
 	
 	public void nextpage(int currentPage){
 		
@@ -238,52 +327,43 @@ public class ProductsViewController {
 		ProductsDao productsDao = new ProductsDao();
 		ProductsView productsView = new ProductsView();
 		ProductsModel product = new ProductsModel();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		try{
-			if(productID<0){
-				
-				System.out.print("Please Enter productID: ");
-				productID = Integer.parseInt(br.readLine());
-				if(productID!=-1){
-					product.setProductID(productID);
-				}
-			}
+		MainMenuView mainMenuView = new MainMenuView();
+
+		if(productID<0){
 			
-			System.out.print("Please Enter ProductName: ");
-			br = new BufferedReader(new InputStreamReader(System.in));
-			String ProductName = br.readLine();
-			if(ProductName!=null){
-				product.setProductName(ProductName);
+			productID = mainMenuView.readid(Start.AllowedInputTimes, "ProductID");
+			if(productID!=-1){
+				product.setProductID(productID);
 			}
-			System.out.print("Please Enter StoreName: ");
-			br = new BufferedReader(new InputStreamReader(System.in));
-			String StoreName = br.readLine();
-			if(StoreName!=null){
-				product.setStoreName(StoreName);
-			}
-			
-			System.out.print("Please Enter SubCategoryName: ");
-			br = new BufferedReader(new InputStreamReader(System.in));
-			String SubCategoryName = br.readLine();
-			if(SubCategoryName!=null){
-				product.setSubCategoryName(SubCategoryName);
-			}
-			if(productsDao.getProduct(productID)!=null){
-				System.out.print("Already Exist! ");
-			}else{
-				productsDao.addProduct(product);
-			}
-			
-			productsView.displayAllProducts(5, Start.CurrentPageNumber);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NumberFormatException e){
-			System.out.println("Please input a nubmer as an ProductID");
 		}
 		
+		if(productsDao.getProduct(productID).getProductID()>0){
+			
+			System.out.print("Already Exist! Please try again!");
+			addProduct(-1);
+		}
 	
+		String ProductName = mainMenuView.readstring(Start.AllowedInputTimes, "ProductName");
+		if(ProductName!=null){
+			product.setProductName(ProductName);
+		}
+
+		String StoreName = mainMenuView.readstring(Start.AllowedInputTimes, "StoreName");
+		if(StoreName!=null){
+			
+			product.setStoreName(StoreName);
+		}
+		
+		String SubCategoryName = mainMenuView.readstring(Start.AllowedInputTimes, "SubCategoryName");
+		
+		if(SubCategoryName!=null){
+			product.setSubCategoryName(SubCategoryName);
+		}
+		
+		productsDao.addProduct(product);
+		
+		productsView.displayAllProducts(5, Start.CurrentPageNumber);
+		
 	}
 	
 	private void deleteProduct(int productID) {
@@ -291,21 +371,16 @@ public class ProductsViewController {
 		ProductsDao productsDao = new ProductsDao();
 		ProductsView productsView = new ProductsView();
 		ProductsModel product = new ProductsModel();
+		MainMenuView mainMenuView = new MainMenuView();
+		
 		if(productID<0){
-			try {
-				System.out.print("Please Enter productID: ");
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				productID = Integer.parseInt(br.readLine());
-				if(productID!=-1){
-					product.setProductID(productID);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NumberFormatException e){
-				System.out.println("Please input a nubmer as an ProductID");
+			
+			productID = mainMenuView.readid(Start.AllowedInputTimes, "ProductID");
+			if(productID!=-1){
+				product.setProductID(productID);
 			}
 		}
+		
 		if(productsDao.getProduct(productID)!=null){
 			productsDao.deleteProduct(productID);
 		}else{
@@ -319,50 +394,37 @@ public class ProductsViewController {
 		ProductsDao productsDao = new ProductsDao();
 		ProductsView productsView = new ProductsView();
 		ProductsModel product = new ProductsModel();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		MainMenuView mainMenuView = new MainMenuView();
 		
-		try{
-			if(productID<0){
-				
-				System.out.print("Please Enter productID: ");
-				productID = Integer.parseInt(br.readLine());
-				if(productID!=-1){
-					product.setProductID(productID);
-				}
+		if(productID<0){
+
+			productID = mainMenuView.readid(Start.AllowedInputTimes, "ProductID");
+			if(productID!=-1){
+				product.setProductID(productID);
 			}
-			
-			System.out.print("Please Enter ProductName: ");
-			br = new BufferedReader(new InputStreamReader(System.in));
-			String ProductName = br.readLine();
-			if(ProductName!=null){
-				product.setProductName(ProductName);
-			}
-			System.out.print("Please Enter StoreName: ");
-			br = new BufferedReader(new InputStreamReader(System.in));
-			String StoreName = br.readLine();
-			if(StoreName!=null){
-				product.setStoreName(StoreName);
-			}
-			
-			System.out.print("Please Enter SubCategoryName: ");
-			br = new BufferedReader(new InputStreamReader(System.in));
-			String SubCategoryName = br.readLine();
-			if(SubCategoryName!=null){
-				product.setSubCategoryName(SubCategoryName);
-			}
-			if(productsDao.getProduct(productID)!=null){
-				productsDao.updateProduct(product);
-			}else{
-				System.out.print("Wrong productID! ");
-			}
-			
-			productsView.displayAllProducts(5, Start.CurrentPageNumber);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NumberFormatException e){
-			System.out.println("Please input a nubmer as an ProductID");
 		}
+	
+		String ProductName = mainMenuView.readstring(Start.AllowedInputTimes, "ProductName");
+		if(ProductName!=null){
+			product.setProductName(ProductName);
+		}
+
+		String StoreName = mainMenuView.readstring(Start.AllowedInputTimes, "StoreName");
+		if(StoreName!=null){
+			product.setStoreName(StoreName);
+		}
+		
+		String SubCategoryName = mainMenuView.readstring(Start.AllowedInputTimes, "SubCategoryName");
+		if(SubCategoryName!=null){
+			product.setSubCategoryName(SubCategoryName);
+		}
+		if(productsDao.getProduct(productID)!=null){
+			productsDao.updateProduct(product);
+		}else{
+			System.out.print("Wrong productID! ");
+		}
+		
+		productsView.displayAllProducts(5, Start.CurrentPageNumber);
 		
 	}
 	

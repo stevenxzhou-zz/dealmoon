@@ -1,7 +1,9 @@
 package udel.cisc637.steven.controller;
 
+import app.start.Start;
 import udel.cisc637.steven.view.FavoritesView;
 import udel.cisc637.steven.view.MPCView;
+import udel.cisc637.steven.view.MainMenuView;
 import udel.cisc637.steven.view.ProductsView;
 import udel.cisc637.steven.view.StoresView;
 import udel.cisc637.steven.view.UsersView;
@@ -13,6 +15,7 @@ public class MainMenuController {
 	MPCView mpcView = new MPCView();
 	FavoritesView favoritesView = new FavoritesView();
 	UsersView usersView = new UsersView();
+	
 	
 	public void guestMenu(int choice){
 		switch(choice){
@@ -27,7 +30,8 @@ public class MainMenuController {
 		case 5: System.exit(1);
 			break;
 		default:
-			System.out.println("No Such Choice!");
+			MainMenuView mainMenuView = new MainMenuView();
+			mainMenuView.displayMainMenu(Start.UserName);
 			
 		}
 	}
@@ -47,7 +51,8 @@ public class MainMenuController {
 		case 6: System.exit(1);
 			break;
 		default:
-			System.out.println("No Such Choice!");
+			MainMenuView mainMenuView = new MainMenuView();
+			mainMenuView.displayMainMenu(Start.UserName);
 		}
 	}
 	
@@ -66,7 +71,8 @@ public class MainMenuController {
 		case 6: System.exit(1);
 			break;
 		default:
-			System.out.println("No Such Choice!");
+			MainMenuView mainMenuView = new MainMenuView();
+			mainMenuView.displayMainMenu(Start.UserName);
 		}
 	}
 }

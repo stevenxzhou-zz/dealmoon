@@ -96,11 +96,9 @@ public class StoresView {
 	
 	public void displayStoreFromStoreName(String StoreName) {
 		
-	    try {
 	    	if(StoreName==null){
-				System.out.print("Please Enter StoreName: ");
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				StoreName = br.readLine();
+				MainMenuView mainMenuView = new MainMenuView();
+				StoreName=mainMenuView.readstring(Start.AllowedInputTimes, "StoreName");
 			}
 	    	
 	    	StoresDao storesDao = new StoresDao();
@@ -116,11 +114,12 @@ public class StoresView {
 				System.out.println("===Menu===");
 				System.out.println("1. delete");
 				System.out.println("2. update");
-				System.out.println("3. Go Back.");
-				System.out.println("4. Quit");
+				System.out.println("3. See Products Under A Store");
+				System.out.println("4. Go Back.");
+				System.out.println("5. Quit");
 				Start.setStoreName(StoreName);
 
-				int options=4;
+				int options=5;
 				MainMenuView mainMenuView = new MainMenuView();
 				int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 				
@@ -129,11 +128,12 @@ public class StoresView {
 			}else if(Start.login){
 				System.out.println("===Menu===");
 				System.out.println("1. Add store to favorites");
-				System.out.println("2. Go Back.");
-				System.out.println("3. Quit");
+				System.out.println("2. See Products Under A Store");
+				System.out.println("3. Go Back.");
+				System.out.println("4. Quit");
 				Start.setStoreName(StoreName);
 				
-				int options=3;
+				int options=4;
 				MainMenuView mainMenuView = new MainMenuView();
 				int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 				
@@ -141,22 +141,17 @@ public class StoresView {
 				storesViewController.controlStoreViewUser(choice);
 			}else{
 				System.out.println("===Menu===");
-				System.out.println("1. Go Back.");
-				System.out.println("2. Quit");
+				System.out.println("1. See Products Under A Store");
+				System.out.println("2. Go Back.");
+				System.out.println("3. Quit");
 				Start.setStoreName(StoreName);
 
-				int options=2;
+				int options=3;
 				MainMenuView mainMenuView = new MainMenuView();
 				int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 				
 				StoresViewController storesViewController = new StoresViewController();
 				storesViewController.controlStoreView(choice);
 			}
-	    } catch (IOException ioe) {
-	    	System.out.println("IO error trying to read your name!");
-	    }
-		
 	}
-	
-	
 }

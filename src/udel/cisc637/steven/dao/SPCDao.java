@@ -22,12 +22,12 @@ public class SPCDao {
 		try {
 			String sql="insert into SubProductCategory values (?,?)";
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
-			pst.setString(1, spcModel.getMainProductName());
-			pst.setString(2, spcModel.getSubProductName());
+			pst.setString(1, spcModel.getSubProductName());
+			pst.setString(2, spcModel.getMainProductName());
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing MaincategoryName!");
 		} 
 	}
 	
@@ -35,12 +35,12 @@ public class SPCDao {
 		
 		try {
 			String sql="delete from SubProductCategory where SubCategoryName=?";
-			pst.setString(1, SubCategoryName);
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
+			pst.setString(1, SubCategoryName);
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing SubcategoryName!");
 		} 
 	}
 	
@@ -56,7 +56,7 @@ public class SPCDao {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing SubcategoryName!");
 		} 
 	}
 	
@@ -102,7 +102,7 @@ public class SPCDao {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing MaincategoryName!");
 		}
 		return spcList;
 	}

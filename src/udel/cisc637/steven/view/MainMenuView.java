@@ -3,6 +3,7 @@ package udel.cisc637.steven.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.IllegalFormatException;
 
 import app.start.Start;
 
@@ -15,6 +16,7 @@ public class MainMenuView {
 	
 	public void displayMainMenu(String UserName){
 		Start.SubCategoryName=null;
+		Start.StoreName=null;
 		Start.ProductID=-1;
 		
 		if(Start.Admin){
@@ -73,32 +75,122 @@ public class MainMenuView {
 	int choice;
 	// common method for reading choices the user input
 	public int readchoice(int times, int options){
-		System.out.print("Please Enter Your Choice: ");
-	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    try {
-	    	choice = Integer.parseInt(br.readLine());
-	    	
-	    	if(choice<=options){
-	    		return choice;
-	    	}else if(times>0){
-	    		times--;
-	    		System.out.println("Wrong Choice! You have "+times+" times to try");
-	    		readchoice(times,options);
-	    	}else{
-	    		System.exit(1);
-	    	}
-			
-		} catch (NumberFormatException e) {
-			times--;
-	    	System.out.println("Please Input a Number, You have "+times+" times to try");
-	    	readchoice(times,options);
-	    	
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			times--;
-	    	System.out.println("IO error trying to read your name!");
-	    	readchoice(times,options);
+		if(times>0){
+			System.out.print("Please Enter Your Choice: ");
+		    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		    try {
+		    	choice = Integer.parseInt(br.readLine());
+		    	
+		    	if(0<choice&&choice<=options){
+		    		return choice;
+		    	}else if(times>0||choice<0){
+		    		times--;
+		    		System.out.println("Wrong Choice! You have "+times+" times to try");
+		    		readchoice(times,options);
+		    	}else{
+		    		System.exit(1);
+		    	}
+				
+			} catch (NumberFormatException e) {
+				times--;
+		    	System.out.println("Please Input a Number, You have "+times+" times to try");
+		    	readchoice(times,options);
+		    	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				times--;
+		    	System.out.println("IO error!");
+		    	readchoice(times,options);
+			}
+		}else{
+			System.out.println("Sorry! You have make 3 mistakes, You will be sent to main menu!");
+			displayMainMenu(Start.UserName);
 		}
+		
 		return choice;
+	}
+	
+
+	
+	String string;
+	public String readstring(int times, String name){
+		if(times>0){
+			System.out.print("Please Enter The "+name+":");
+		    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		    try {
+				string = br.readLine();
+				if(isNumeric(string)){
+					times--;
+					System.out.println("Please Input a String! Not a Number! You have "+times+" times to try");
+					readstring(times,name);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				times--;
+				System.out.println("IO Error!");
+				readstring(times,name);
+			} catch (IllegalFormatException e){
+				times--;
+				System.out.println("Please Input a String! You have "+times+" times to try");
+				readstring(times,name);
+			}
+			
+		}else{
+			System.out.println("Sorry! You have make 3 mistakes, You will be sent to main menu!");
+			displayMainMenu(Start.UserName);
+		}
+		return string;
+	}
+	
+	
+	int id;
+	// common method for reading choices the user input
+	public int readid(int times, String name){
+		if(times>0){
+			System.out.print("Please Enter The "+name+":");
+		    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		    try {
+		    	id = Integer.parseInt(br.readLine());
+		    	if(0<id){
+		    		return id;
+		    	}else if(times>0||id<0){
+		    		times--;
+		    		System.out.println("Wrong Choice! You have "+times+" times to try");
+		    		readid(times,name);
+		    	}else{
+		    		System.exit(1);
+		    	}
+				
+			} catch (NumberFormatException e) {
+				times--;
+		    	System.out.println("Please Input a Number, You have "+times+" times to try");
+		    	readid(times,name);
+		    	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				times--;
+		    	System.out.println("IO error!");
+		    	readid(times,name);
+			}
+		}else{
+			System.out.println("Sorry! You have make 3 mistakes, You will be sent to main menu!");
+			displayMainMenu(Start.UserName);
+		}
+		
+		return id;
+	}
+	
+	public static boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);  
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	  return true;  
 	}
 }

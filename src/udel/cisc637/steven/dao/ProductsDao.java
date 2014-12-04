@@ -37,7 +37,7 @@ public class ProductsDao {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Sorry! The storename or subcategoryname might not be valid, Please use the existing ones!");
 		} 
 	}
 	

@@ -31,21 +31,21 @@ public class MPCDao {
 	
 	public void deleteMainCategory(String MainCategoryName){
 		
-		String sql="delete from MainProductCategory where MaincategoryName=?";
+		String sql="delete from MainProductCategory where MainCategoryName=?";
 		
 		try {
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
 			pst.setString(1, MainCategoryName);
-			pst.executeQuery();
+			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing MainCategoryName!");
 		} 
 	}
 	
 	public void updateMainCategory(MPCModel MainCategoryOld, MPCModel MainCategoryNew){
 		
-		String sql="update MainProductCategory set MaincategoryName=? where MaincategoryName=? ";
+		String sql="update MainProductCategory set MainCategoryName=? where MainCategoryName=? ";
 		try {
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
 			pst.setString(1, MainCategoryNew.getMainProductName());
@@ -53,7 +53,7 @@ public class MPCDao {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing MaincategoryName!");
 		} 
 	}
 

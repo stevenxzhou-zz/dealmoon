@@ -38,8 +38,9 @@ public class FavoritesDao {
 		try {
 			String sql="delete from Favorites where StoreName=? and Email=? ";
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
-			pst.setString(1, Email);
-			pst.setString(2, StoreName);
+			pst.setString(1, StoreName);
+			pst.setString(2, Email);
+			
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -48,13 +49,13 @@ public class FavoritesDao {
 		} 
 	}
 
-	public void deleteFavoriteProduct(String Email, String ProductID){
+	public void deleteFavoriteProduct(String Email, int ProductID){
 		
 		try {
 			String sql="delete from Favorites where ProductID=? and Email=? ";
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
-			pst.setString(1, Email);
-			pst.setString(2, ProductID);
+			pst.setInt(1, ProductID);
+			pst.setString(2, Email);
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {

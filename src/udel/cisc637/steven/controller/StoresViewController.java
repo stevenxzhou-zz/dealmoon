@@ -12,6 +12,7 @@ import udel.cisc637.steven.model.FavoritesModel;
 import udel.cisc637.steven.model.StoresModel;
 import udel.cisc637.steven.view.FavoritesView;
 import udel.cisc637.steven.view.MainMenuView;
+import udel.cisc637.steven.view.ProductsView;
 import udel.cisc637.steven.view.StoresView;
 
 public class StoresViewController {
@@ -49,9 +50,11 @@ public class StoresViewController {
 	}
 	public void controlStoreView(int choice){
 		switch(choice){
-			case 1: goBackToStores();// go back to subcategory
+			case 1: seeProductsFromStore();
 				break;
-			case 2: System.exit(-1);
+			case 2: goBackToStores();// go back to subcategory
+				break;
+			case 3: System.exit(-1);
 				break;
 			default: 
 				System.out.println("No Such Choice!");
@@ -65,9 +68,11 @@ public class StoresViewController {
 				break;
 			case 2: updateStore(Start.StoreName);
 				break;
-			case 3: goBackToStores();// go back to subcategory
+			case 3: seeProductsFromStore();
 				break;
-			case 4: System.exit(-1);
+			case 4: goBackToStores();// go back to subcategory
+				break;
+			case 5: System.exit(-1);
 				break;
 			default: 
 				System.out.println("No Such Choice!");
@@ -79,9 +84,11 @@ public class StoresViewController {
 		switch(choice){
 			case 1: addStoreToFavorites();// go back to subcategory
 				break;
-			case 2: goBackToStores();// go back to subcategory
+			case 2: seeProductsFromStore();
 				break;
-			case 3: System.exit(-1);
+			case 3: goBackToStores();// go back to subcategory
+				break;
+			case 4: System.exit(-1);
 				break;
 			default: 
 				System.out.println("No Such Choice!");
@@ -151,6 +158,12 @@ public class StoresViewController {
 		storesView.displayStoreFromStoreName(null);
 	}
 	
+	public void seeProductsFromStore(){
+		
+		ProductsView productsView = new ProductsView();
+		productsView.displayProductsFromStoreName(Start.StoreName);
+	}
+	
 	public void nextpage(int currentPage){
 		
 		StoresView storesView = new StoresView();
@@ -185,36 +198,29 @@ public class StoresViewController {
 		StoresDao storesDao = new StoresDao();
 		StoresView storesView = new StoresView();
 		StoresModel store = new StoresModel();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		MainMenuView mainMenuView = new MainMenuView();
 		
-		try{
-			if(storeName==null){
-				
-				System.out.print("Please Enter StoreName: ");
-				storeName = br.readLine();
-				if(storeName!=null){
-					store.setStoreName(storeName);
-				}
-			}
+		if(storeName==null){
 			
-			System.out.print("Please Enter StoreLink: ");
-			br = new BufferedReader(new InputStreamReader(System.in));
-			String storeLink = br.readLine();
-			if(storeLink!=null){
-				store.setStoreLink(storeLink);
+			storeName = mainMenuView.readstring(Start.AllowedInputTimes, "StoreName");
+			if(storeName!=null){
+				store.setStoreName(storeName);
 			}
-
-			if(storesDao.getStore(storeName)!=null){
-				System.out.print("Already Exist ");
-			}else{
-				storesDao.addStore(store);
-			}
-			
-			storesView.displayAllStores(5, Start.CurrentPageNumber);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
+		String storeLink = mainMenuView.readstring(Start.AllowedInputTimes, "StoreLink");
+		
+		if(storeLink!=null){
+			store.setStoreLink(storeLink);
+		}
+
+		if(storesDao.getStore(storeName).StoreName!=null){
+			System.out.print("Already Exist ");
+		}else{
+			storesDao.addStore(store);
+		}
+		
+		storesView.displayAllStores(5, Start.CurrentPageNumber);
 	
 	}
 	
@@ -223,18 +229,12 @@ public class StoresViewController {
 		StoresDao storesDao = new StoresDao();
 		StoresView storesView = new StoresView();
 		StoresModel store = new StoresModel();
+		MainMenuView mainMenuView = new MainMenuView();
 		if(storeName==null){
-			try {
-				System.out.print("Please Enter storeName: ");
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				storeName = br.readLine();
-				if(storeName!=null){
-					store.setStoreName(storeName);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+			storeName = mainMenuView.readstring(Start.AllowedInputTimes, "StoreName");
+			if(storeName!=null){
+				store.setStoreName(storeName);
+			}
 		}
 		if(storesDao.getStore(storeName)!=null){
 			storesDao.deleteStore(storeName);
@@ -249,35 +249,26 @@ public class StoresViewController {
 		StoresDao storesDao = new StoresDao();
 		StoresView storesView = new StoresView();
 		StoresModel store = new StoresModel();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		MainMenuView mainMenuView = new MainMenuView();
 		
-		try{
-			if(storeName==null){
-				
-				System.out.print("Please Enter StoreName: ");
-				storeName = br.readLine();
-				if(storeName!=null){
-					store.setStoreName(storeName);
-				}
+		if(storeName==null){
+			storeName = mainMenuView.readstring(Start.AllowedInputTimes, "StoreName");
+			if(storeName!=null){
+				store.setStoreName(storeName);
 			}
-			
-			System.out.print("Please Enter StoreLink: ");
-			br = new BufferedReader(new InputStreamReader(System.in));
-			String storeLink = br.readLine();
-			if(storeLink!=null){
-				store.setStoreLink(storeLink);
-			}
-
-			if(storesDao.getStore(storeName)!=null){
-				storesDao.updateStore(store);
-			}else{
-				System.out.print("Wrong storeName! ");
-			}
-			
-			storesView.displayAllStores(5, Start.CurrentPageNumber);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
+		String storeLink = mainMenuView.readstring(Start.AllowedInputTimes, "StoreLink");
+		if(storeLink!=null){
+			store.setStoreLink(storeLink);
+		}
+
+		if(storesDao.getStore(storeName).getStoreName()!=null){
+			storesDao.updateStore(store);
+		}else{
+			System.out.print("There is no store called " + storeName);
+		}
+		
+		storesView.displayStoreFromStoreName(storeName);
 	}
 }

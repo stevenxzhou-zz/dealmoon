@@ -43,14 +43,14 @@ public class UsersDao {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing Email!");
 		} 
 	}
 	
 	public void updateUser(UsersModel user){
 		
 		try {
-			String sql="update Users set Name=?, Password=?, isAdmin=? where Email=?";
+			String sql="update Users set Name=?, Password=?, Admin=? where Email=?";
 			pst = MysqlConnector.getInstance().prepareStatement(sql);
 			pst.setString(1, user.getName());
 			pst.setString(2, user.getPassword());
@@ -59,7 +59,7 @@ public class UsersDao {
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing Email!");
 		} 
 	}
 	
@@ -81,7 +81,7 @@ public class UsersDao {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please input an existing Email!");
 		} 
 		return user;
 	}

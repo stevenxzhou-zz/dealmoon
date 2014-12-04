@@ -1,8 +1,5 @@
 package udel.cisc637.steven.view;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import app.start.Start;
@@ -10,6 +7,7 @@ import app.start.Start;
 import udel.cisc637.steven.controller.ProductsViewController;
 import udel.cisc637.steven.dao.ProductsDao;
 import udel.cisc637.steven.model.ProductsModel;
+import udel.cisc637.steven.utility.PageInfo;
 
 public class ProductsView {
 	
@@ -100,12 +98,10 @@ public class ProductsView {
 	
 	public void displayProductFromProductID(int ProductID) {
 		
-	    try {
 	    	
 	    	if(ProductID< 0){
-				System.out.print("Please Enter ProductID: ");
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				ProductID = (Integer.parseInt(br.readLine()));
+				MainMenuView mainMenuView = new MainMenuView();
+				ProductID=mainMenuView.readid(Start.AllowedInputTimes, "ProductID");
 			}
 	    	
 	    	ProductsDao productsDao = new ProductsDao();
@@ -147,19 +143,14 @@ public class ProductsView {
 			
 			ProductsViewController productsViewController = new ProductsViewController();
 			productsViewController.controlProductFromProductIdView(choice);
-			
-	    } catch (IOException ioe) {
-	    	System.out.println("IO error trying to read your name!");
-	    }
 	}
 	
 	public void displayProductsFromSub(String SubCategoryName) {
 		
-	    try {
 	    	if(SubCategoryName==null){
-	    		System.out.print("Please Enter SubCategoryName: ");
-	    		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    		SubCategoryName = br.readLine();
+	    		
+	    		MainMenuView mainMenuView = new MainMenuView();
+	    		mainMenuView.readstring(Start.AllowedInputTimes, "SubCategoryName");
 		    }
 	    	
 	    	ProductsDao productsDao = new ProductsDao();
@@ -172,10 +163,10 @@ public class ProductsView {
 			}
 			System.out.println("===============");
 			System.out.print("\n");
-			
+			PageInfo pageInfo = new PageInfo(productsList,5); 
 			int options;
-			if(Start.CurrentPageNumber>1){
-				Start.setSubCategoryName(SubCategoryName);
+			if(Start.CurrentPageNumber>1&&Start.CurrentPageNumber!=pageInfo.getMaxPages()){
+				Start.setStoreName(SubCategoryName);
 				System.out.println("===Menu===");
 				System.out.println("1. Next Page.");
 				System.out.println("2. Previous Page");
@@ -184,8 +175,8 @@ public class ProductsView {
 				System.out.println("5. Quit");
 				
 				options=5;
-			}else{
-				Start.setSubCategoryName(SubCategoryName);
+			}else if(pageInfo.getMaxPages()>1){
+				Start.setStoreName(SubCategoryName);
 				System.out.println("===Menu===");
 				System.out.println("1. Next Page.");
 				System.out.println("2. See Detail.");
@@ -193,6 +184,22 @@ public class ProductsView {
 				System.out.println("4. Quit");
 				
 				options=4;
+			}else if(pageInfo.getMaxItems()>1){
+				Start.setStoreName(SubCategoryName);
+				System.out.println("===Menu===");
+				System.out.println("1. See Detail.");
+				System.out.println("2. Go Back.");
+				System.out.println("3. Quit");
+				
+				options=3;
+			}else{
+				Start.setStoreName(SubCategoryName);
+				System.out.println("No Products Belong to This Store!");
+				System.out.println("===Menu===");
+				System.out.println("1. Go Back.");
+				System.out.println("2. Quit");
+				
+				options=2;
 			}
 			
 			
@@ -200,22 +207,14 @@ public class ProductsView {
 			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
 			ProductsViewController productsViewController = new ProductsViewController();
-			productsViewController.controlProductsFromSubView(choice);
-			
-	    } catch (IOException ioe) {
-	    	System.out.println("IO error trying to read your name!");
-	    }
-		// TODO Auto-generated method stub	
+			productsViewController.controlProductsFromSubView(choice,pageInfo.getMaxPages(),pageInfo.getMaxItems());
 	}
 	
-	public void displayProductsFromStoreName(String StoreName, int origin) {
-		
-	    try {
-	    	
-	    	if(StoreName==null){
-				System.out.print("Please Enter StoreName: ");
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				StoreName = br.readLine();
+	public void displayProductsFromStoreName(String StoreName) {
+
+			if(StoreName==null){
+				MainMenuView mainMenuView = new MainMenuView();
+				StoreName=mainMenuView.readstring(Start.AllowedInputTimes, "StoreName");
 			}
 	    	
 	    	ProductsDao productsController = new ProductsDao();
@@ -228,10 +227,50 @@ public class ProductsView {
 			}
 			System.out.println("==============");
 			System.out.print("\n");
+			PageInfo pageInfo = new PageInfo(productsList,5); 
+			int options;
+			if(Start.CurrentPageNumber>1&&Start.CurrentPageNumber!=pageInfo.getMaxPages()){
+				Start.setStoreName(StoreName);
+				System.out.println("===Menu===");
+				System.out.println("1. Next Page.");
+				System.out.println("2. Previous Page");
+				System.out.println("3. See Detail.");
+				System.out.println("4. Go Back.");
+				System.out.println("5. Quit");
+				
+				options=5;
+			}else if(pageInfo.getMaxPages()>1){
+				Start.setStoreName(StoreName);
+				System.out.println("===Menu===");
+				System.out.println("1. Next Page.");
+				System.out.println("2. See Detail.");
+				System.out.println("3. Go Back.");
+				System.out.println("4. Quit");
+				
+				options=4;
+			}else if(pageInfo.getMaxItems()>1){
+				Start.setStoreName(StoreName);
+				System.out.println("===Menu===");
+				System.out.println("1. See Detail.");
+				System.out.println("2. Go Back.");
+				System.out.println("3. Quit");
+				
+				options=3;
+			}else{
+				Start.setStoreName(StoreName);
+				System.out.println("No Products Belong to This Store!");
+				System.out.println("===Menu===");
+				System.out.println("1. Go Back.");
+				System.out.println("2. Quit");
+				
+				options=2;
+			}
 			
-	    } catch (IOException ioe) {
-	    	System.out.println("IO error trying to read your name!");
-	    }
-		
+			MainMenuView mainMenuView = new MainMenuView();
+			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
+			
+			ProductsViewController productsViewController = new ProductsViewController();
+			productsViewController.controlProductsFromStoreView(choice,pageInfo.getMaxPages(),pageInfo.getMaxItems());
 	}
 }
+

@@ -10,6 +10,7 @@ import udel.cisc637.steven.controller.MPCViewController;
 import udel.cisc637.steven.controller.SPCViewController;
 import udel.cisc637.steven.dao.SPCDao;
 import udel.cisc637.steven.model.SPCModel;
+import udel.cisc637.steven.utility.PageInfo;
 
 public class SPCView {
 	
@@ -33,11 +34,14 @@ public class SPCView {
 				System.out.println("===================");
 				System.out.print("\n");
 				Start.setMainCategoryName(MainCategoryName);
+				
+				PageInfo pageinfo = new PageInfo(spcList,5);
+				
 				if(Start.Admin){
 					// display menus
 					System.out.println("===Menu===");
-					System.out.println("1. Add New MainCategory");
-					System.out.println("2. Delete MainCategory");
+					System.out.println("1. Add New Subcategory");
+					System.out.println("2. Delete Subcategory");
 					System.out.println("3. See Products Under a Subcategory.");
 					System.out.println("4. Go Back.");
 					System.out.println("5. Quit");
@@ -46,8 +50,8 @@ public class SPCView {
 					int options=5;
 					MainMenuView mainMenuView = new MainMenuView();
 					int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
-					MPCViewController mpcViewController = new MPCViewController();
-					mpcViewController.controlMPCViewAdmin(choice);
+					SPCViewController spcViewController = new SPCViewController();
+					spcViewController.controlSPCViewAdmin(choice);
 				}else{
 					// display menus
 					System.out.println("===Menu===");

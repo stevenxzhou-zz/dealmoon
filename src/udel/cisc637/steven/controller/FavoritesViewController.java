@@ -10,6 +10,7 @@ import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.view.FavoritesView;
 import udel.cisc637.steven.view.MainMenuView;
 import udel.cisc637.steven.view.ProductsView;
+import udel.cisc637.steven.view.StoresView;
 
 public class FavoritesViewController {
 	public void controlAllFavoritesView(int choice){
@@ -33,7 +34,12 @@ public class FavoritesViewController {
 			ProductsView productsView = new ProductsView();
 			productsView.displayProductFromProductID(Start.getProductID());
 			Start.ProductID=-1;
-		}else{
+		}else if(Start.StoreName!=null)
+		{
+			StoresView storesView = new StoresView();
+			storesView.displayStoreFromStoreName(Start.StoreName);
+		}
+		else{
 			MainMenuView mainMenuView = new MainMenuView();
 			mainMenuView.displayMainMenu(Start.UserName);
 		}
@@ -43,31 +49,22 @@ public class FavoritesViewController {
 	public void deleteFavoriteStore(){
 		FavoritesDao favoritesDao = new FavoritesDao();
 		FavoritesView favoritesView = new FavoritesView();
-		try {
-			System.out.print("Please Enter StoreName: ");
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			String StoreName = br.readLine();
-			favoritesDao.deleteFavoriteStore(Start.getEmail(), StoreName);
-			favoritesView.displayAllFavorites();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		MainMenuView mainMenuView = new MainMenuView();
+		
+		String StoreName = mainMenuView.readstring(Start.AllowedInputTimes, "StoreName");
+
+		favoritesDao.deleteFavoriteStore(Start.getEmail(), StoreName);
+		favoritesView.displayAllFavorites();
 	}
 	
 	public void deleteFavoriteProduct(){
 		
 		FavoritesDao favoritesDao = new FavoritesDao();
 		FavoritesView favoritesView = new FavoritesView();
-		try {
-			System.out.print("Please Enter ProductID: ");
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			String ProductID = br.readLine();
-			favoritesDao.deleteFavoriteProduct(Start.getEmail(), ProductID);
-			favoritesView.displayAllFavorites();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		MainMenuView mainMenuView = new MainMenuView();
+		
+		int ProductID = mainMenuView.readid(Start.AllowedInputTimes, "ProductID");
+		favoritesDao.deleteFavoriteProduct(Start.getEmail(), ProductID);
+		favoritesView.displayAllFavorites();
 	}
 }

@@ -1,12 +1,10 @@
 package udel.cisc637.steven.controller;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 import app.start.Start;
 import udel.cisc637.steven.dao.SPCDao;
 import udel.cisc637.steven.model.SPCModel;
 import udel.cisc637.steven.view.MPCView;
+import udel.cisc637.steven.view.MainMenuView;
 import udel.cisc637.steven.view.ProductsView;
 import udel.cisc637.steven.view.SPCView;
 
@@ -54,41 +52,28 @@ public class SPCViewController {
 	}
 	
 	public void AddSubCategory(){
-		System.out.print("Please Enter New SubProductCategoryName: ");
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String subProductName;
+
+		MainMenuView mainMenuView = new MainMenuView();
+		String subProductName = mainMenuView.readstring(Start.AllowedInputTimes, "SubProductCategoryName");
 		SPCView spcView = new SPCView();
 		SPCDao spcDao = new SPCDao();
-		try {
-			subProductName = br.readLine();
-			SPCModel spc= new SPCModel();
-			if(subProductName!=null){
-				spc.setSubProductName(subProductName);
-				spc.setMainProductName(Start.MainCategoryName);
-			}
-			spcDao.addSubCategory(spc);
-			spcView.displaySubCategoriesFromMain(Start.MainCategoryName);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		SPCModel spc= new SPCModel();
+		if(subProductName!=null){
+			spc.setSubProductName(subProductName);
+			spc.setMainProductName(Start.MainCategoryName);
 		}
+		spcDao.addSubCategory(spc);
+		spcView.displaySubCategoriesFromMain(Start.MainCategoryName);
 	}
 	
 	public void DeleteSubCategory(){
-		System.out.print("Please Enter a Known SubProductCategoryName: ");
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String subProductName;
+		MainMenuView mainMenuView = new MainMenuView();
+		String subProductName = mainMenuView.readstring(Start.AllowedInputTimes, "SubProductCategoryName");
 		SPCView spcView = new SPCView();
 		SPCDao spcDao = new SPCDao();
-		try {
-			subProductName = br.readLine();
-			spcDao.deleteSubCategory(subProductName);
-			spcView.displaySubCategoriesFromMain(Start.MainCategoryName);
+
+		spcDao.deleteSubCategory(subProductName);
+		spcView.displaySubCategoriesFromMain(Start.MainCategoryName);
 			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

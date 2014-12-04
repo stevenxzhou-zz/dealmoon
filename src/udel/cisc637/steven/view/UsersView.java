@@ -10,6 +10,7 @@ import app.start.Start;
 import udel.cisc637.steven.controller.UsersViewController;
 import udel.cisc637.steven.dao.UsersDao;
 import udel.cisc637.steven.model.UsersModel;
+import udel.cisc637.steven.utility.PageInfo;
 
 public class UsersView {
 	
@@ -18,17 +19,20 @@ public class UsersView {
 		UsersDao UsersController = new UsersDao();
 		List<UsersModel> usersList= UsersController.getAllUsers();
 		
+		PageInfo pageinfo = new PageInfo(usersList,5);
+		
 		System.out.print("\n");
 		System.out.println("===Users===");
 		for(UsersModel e:usersList){
-			System.out.println(e.getName());
+			System.out.println(e.getEmail());
 		}
 		System.out.println("===Page"+page+"===");
 		System.out.print("\n");
 		
 		int options;
-		
-		if(Start.Admin&&Start.CurrentPageNumber>1){
+		int choice;
+
+		if(Start.Admin&&Start.CurrentPageNumber>1&&Start.CurrentPageNumber!=pageinfo.getMaxPages()){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. Previous Page");
@@ -41,13 +45,10 @@ public class UsersView {
 			options=8;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
+			choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 			
-			UsersViewController usersViewController = new UsersViewController();
-			usersViewController.controlAllUsersViewAdmin(choice);
-		}
-		
-		if(Start.Admin&&Start.CurrentPageNumber==1){
+			
+		}else if(Start.Admin&&Start.CurrentPageNumber==1&&pageinfo.getMaxPages()>1){
 			System.out.println("===Menu===");
 			System.out.println("1. Next Page.");
 			System.out.println("2. See Detail.");
@@ -59,53 +60,31 @@ public class UsersView {
 			options=7;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
-			
-			UsersViewController usersViewController = new UsersViewController();
-			usersViewController.controlAllUsersViewAdmin(choice);
-		}
+			choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 		
-		
-		if(!Start.Admin&&Start.CurrentPageNumber>1){
+		}else{
 			System.out.println("===Menu===");
-			System.out.println("1. Next Page.");
-			System.out.println("2. Previous Page");
-			System.out.println("3. See Detail.");
-			System.out.println("4. Go Back.");
-			System.out.println("5. Quit");
-			options=5;
+			System.out.println("1. See Detail.");
+			System.out.println("2. Add.");
+			System.out.println("3. Delete.");
+			System.out.println("4. Update.");
+			System.out.println("5. Go Back.");
+			System.out.println("6. Quit");
+			options=6;
 			
 			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
-			
-			UsersViewController usersViewController = new UsersViewController();
-			usersViewController.controlAllUsersView(choice);
+			choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
 		}
 		
-		if(!Start.Admin&&Start.CurrentPageNumber==1){
-			System.out.println("===Menu===");
-			System.out.println("1. Next Page.");
-			System.out.println("2. See Detail.");
-			System.out.println("3. Go Back.");
-			System.out.println("4. Quit");
-			options=4;
-			
-			MainMenuView mainMenuView = new MainMenuView();
-			int choice=mainMenuView.readchoice(Start.AllowedInputTimes, options);
-			
-			UsersViewController usersViewController = new UsersViewController();
-			usersViewController.controlAllUsersView(choice);
-		}
+		UsersViewController usersViewController = new UsersViewController();
+		usersViewController.controlAllUsersViewAdmin(choice, pageinfo.getMaxPages(),pageinfo.getMaxItems());
 	}
 
 	public void displayUserFromEmail(String Email) {
-		
-	    try {
 	    	
 	    	if(Email==null){
-				System.out.print("Please Enter ProductID: ");
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				Email = br.readLine();
+				MainMenuView mainMenuView = new MainMenuView();
+				Email=mainMenuView.readstring(Start.AllowedInputTimes, "Email");
 			}
 	    	
 	    	UsersDao usersDao = new UsersDao();
@@ -114,6 +93,7 @@ public class UsersView {
 			System.out.print("\n");
 			System.out.println("===User===");
 			System.out.println("User Name: "+user.getName());
+			System.out.println("Email: "+user.getEmail());
 			System.out.println("Password: "+user.getPassword());
 			System.out.println("Admin: "+user.isAdmin());
 			System.out.println("=============");
@@ -126,7 +106,7 @@ public class UsersView {
 				System.out.println("2. Update");
 				System.out.println("3. Go Back.");
 				System.out.println("4. Quit");
-				options=3;
+				options=4;
 			}else{
 				System.out.println("===Menu===");
 				System.out.println("1. Go Back.");
@@ -139,10 +119,6 @@ public class UsersView {
 			
 			UsersViewController usersViewController = new UsersViewController();
 			usersViewController.controlUserFromEmailView(choice);
-			
-	    } catch (IOException ioe) {
-	    	System.out.println("IO error trying to read your name!");
-	    }
 	}
 	public void login(){
 		UsersDao userDao = new UsersDao();

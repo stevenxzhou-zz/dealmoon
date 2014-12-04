@@ -1,9 +1,5 @@
 package udel.cisc637.steven.controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import app.start.Start;
 
 import udel.cisc637.steven.dao.MPCDao;
@@ -55,40 +51,27 @@ public class MPCViewController {
 	}
 	
 	public void AddMainCategory(){
-		System.out.print("Please Enter New MainProductCategoryName: ");
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String mainProductName;
+		
+		MainMenuView mainMenuView = new MainMenuView();
+		String mainProductName = mainMenuView.readstring(Start.AllowedInputTimes, "MainProductCategoryName");
 		MPCView mpcView = new MPCView();
 		MPCDao mpcDao = new MPCDao();
-		try {
-			mainProductName = br.readLine();
-			MPCModel mpc= new MPCModel();
-			if(mainProductName!=null){
-				mpc.setMainProductName(mainProductName);
-			}
-			mpcDao.addMainCategory(mpc);
-			mpcView.displayAllMainCategories();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		MPCModel mpc= new MPCModel();
+		if(mainProductName!=null){
+			mpc.setMainProductName(mainProductName);
 		}
+		mpcDao.addMainCategory(mpc);
+		mpcView.displayAllMainCategories();
 	}
 	
 	public void DeleteMainCategory(){
-		System.out.print("Please Enter a Known MainProductCategoryName: ");
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String mainProductName;
+
 		MPCView mpcView = new MPCView();
 		MPCDao mpcDao = new MPCDao();
-		try {
-			mainProductName = br.readLine();
-			mpcDao.deleteMainCategory(mainProductName);
-			mpcView.displayAllMainCategories();
+		MainMenuView mainMenuView = new MainMenuView();
+		String mainProductName = mainMenuView.readstring(Start.AllowedInputTimes, "MainProductCategoryName");
+		mpcDao.deleteMainCategory(mainProductName);
+		mpcView.displayAllMainCategories();
 			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

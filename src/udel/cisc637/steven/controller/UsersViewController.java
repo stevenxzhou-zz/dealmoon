@@ -14,7 +14,7 @@ import udel.cisc637.steven.view.UsersView;
 
 public class UsersViewController {
 	
-	public void controlAllUsersView(int choice){
+	public void controlAllUsersView(int choice,int maxpages, int maxitems){
 		
 		if(Start.CurrentPageNumber > 1){
 			switch(choice){
@@ -47,9 +47,9 @@ public class UsersViewController {
 		}
 	}
 	
-	public void controlAllUsersViewAdmin(int choice){
+	public void controlAllUsersViewAdmin(int choice,int maxpages, int maxitems){
 		
-		if(Start.CurrentPageNumber > 1){
+		if(Start.Admin&&Start.CurrentPageNumber > 1){
 			switch(choice){
 				case 1: nextpage(Start.CurrentPageNumber);
 					break;
@@ -70,9 +70,9 @@ public class UsersViewController {
 				default:
 					System.out.println("No Such Choice!");
 			}
-		}else{
+		}else if(Start.Admin&&Start.CurrentPageNumber==1&&maxpages>1){
 			switch(choice){
-			case 1: nextpage(Start.CurrentPageNumber);
+			case 1: previouspage(Start.CurrentPageNumber);
 				break;
 			case 2: seeUser();
 				break;
@@ -85,6 +85,23 @@ public class UsersViewController {
 			case 6: goBackToMainMenu();
 				break;
 			case 7: System.exit(-1);
+				break;
+			default:
+				System.out.println("No Such Choice!");
+		}
+		}else{
+			switch(choice){
+			case 1: seeUser();
+				break;
+			case 2: addUser(null);
+				break;
+			case 3: deleteUser(null);
+				break;
+			case 4: updateUser(null);
+				break;
+			case 5: goBackToMainMenu();
+				break;
+			case 6: System.exit(-1);
 				break;
 			default:
 				System.out.println("No Such Choice!");
@@ -258,7 +275,7 @@ public class UsersViewController {
 			br = new BufferedReader(new InputStreamReader(System.in));
 			String UserName = br.readLine();
 			if(UserName!=null){
-				user.setName(Email);
+				user.setName(UserName);
 			}
 			System.out.print("Please Enter Password: ");
 			br = new BufferedReader(new InputStreamReader(System.in));
