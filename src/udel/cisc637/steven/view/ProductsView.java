@@ -1,5 +1,10 @@
 package udel.cisc637.steven.view;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import app.start.Start;
@@ -113,7 +118,21 @@ public class ProductsView {
 			System.out.println("Description: "+product.getProductDescritpion());
 			System.out.println("Current Price: "+product.getCurrentPrice());
 			System.out.println("List Price: "+product.getListPrice());
-			System.out.println("Hits: "+product.getHits());
+			
+			try {
+				InputStream contentStream = product.getImage();
+				OutputStream out=new FileOutputStream("images/"+product.getProductName()+".jpg");
+				byte buf[]=new byte[1024];
+			    int len;
+			    while((len=contentStream.read(buf))>0)
+			    	out.write(buf,0,len);
+			    	out.close();
+			} catch (FileNotFoundException e) {
+				System.out.println("No Image Found");
+			} catch (IOException e) {
+				System.out.println("Error occured");
+			}
+			System.out.println("Image: "+product.getProductName()+".jpg has been downloaed!");
 			System.out.println("=============");
 			System.out.print("\n");
 			

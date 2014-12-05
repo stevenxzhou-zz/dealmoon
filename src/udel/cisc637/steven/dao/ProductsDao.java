@@ -1,11 +1,15 @@
 package udel.cisc637.steven.dao;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.omg.CORBA.portable.InputStream;
 
 import app.start.Start;
 
@@ -142,13 +146,14 @@ public class ProductsDao {
 			pst.executeQuery();
 			
 			ResultSet rs = pst.getResultSet();
-
+			
 			if(rs.next()){
 				product.setProductName(rs.getString("ProductName"));
 				product.setProductDescritpion(rs.getString("ProductDescription"));
 				product.setCurrentPrice(rs.getDouble("CurrentPrice"));
 				product.setListPrice(rs.getDouble("ListPrice"));
-				product.setHits(rs.getInt("Hits"));
+				String newFilename = rs.getString("ProductName");
+				product.setImage(rs.getBinaryStream("Image"));
 				productsList.add(product);
 			}
 			

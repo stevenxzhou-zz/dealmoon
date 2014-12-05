@@ -1,5 +1,9 @@
 package udel.cisc637.steven.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import app.start.Start;
 import udel.cisc637.steven.dao.FavoritesDao;
 import udel.cisc637.steven.dao.ProductsDao;
@@ -360,6 +364,18 @@ public class ProductsViewController {
 			product.setSubCategoryName(SubCategoryName);
 		}
 		
+		String image = mainMenuView.readstring(Start.AllowedInputTimes, "Image FileName");
+		
+		if(image!=null){
+			try {
+				InputStream filecontent = new FileInputStream(image);
+				product.setImage(filecontent);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		productsDao.addProduct(product);
 		
 		productsView.displayAllProducts(5, Start.CurrentPageNumber);
@@ -418,6 +434,19 @@ public class ProductsViewController {
 		if(SubCategoryName!=null){
 			product.setSubCategoryName(SubCategoryName);
 		}
+		
+		String image = mainMenuView.readstring(Start.AllowedInputTimes, "Image FileName");
+		
+		if(image!=null){
+			try {
+				InputStream filecontent = new FileInputStream(image);
+				product.setImage(filecontent);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		if(productsDao.getProduct(productID)!=null){
 			productsDao.updateProduct(product);
 		}else{

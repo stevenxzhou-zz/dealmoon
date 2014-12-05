@@ -1,5 +1,6 @@
 package udel.cisc637.steven.model;
 
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Date;
 
@@ -12,7 +13,7 @@ public class ProductsModel {
 	public Date AddDate;
 	public Date ExpirationDate;
 	public int Hits;
-	public Blob Image;
+	public InputStream Image;
 	public String StoreName;
 	public String SubCategoryName;
 	
@@ -64,10 +65,11 @@ public class ProductsModel {
 	public void setHits(int hits) {
 		Hits = hits;
 	}
-	public Blob getImage() {
+	
+	public InputStream getImage() {
 		return Image;
 	}
-	public void setImage(Blob image) {
+	public void setImage(InputStream image) {
 		Image = image;
 	}
 	public String getStoreName() {
