@@ -15,3 +15,6 @@
    Please Login
    username: admin
    password: amdin
+6. Download a new Project from GitHub
+   env GIT_SSL_NO_VERIFY=true git clone https://github.com/taybson/dealmoon.git
+   
