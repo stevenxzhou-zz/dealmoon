@@ -1,6 +1,8 @@
 # Path to My Project
-  ```/usa/stevenz/dealmoon```
-*Building a runable jar file
+  ```
+  /usa/stevenz/dealmoon
+  ```
+1. Building a runable jar file
    ant clean
    ant
 2. Execute the jar file
