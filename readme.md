@@ -1,12 +1,12 @@
 # Path to My Project
-  ```
-  /usa/stevenz/dealmoon
-  ```
+```
+/usa/stevenz/dealmoon
+```
 1. Building a runable jar file
-   ```
-   ant clean
-   ant
-   ```
+```
+ant clean
+ant
+```
 2. Execute the jar file
    java -jar dealmoon.jar
 3. Browsing with Guest permission.
