@@ -1,5 +1,5 @@
 # Path to My Project
-  /usa/stevenz/dealmoon
+  `/usa/stevenz/dealmoon`
 1. Building a runable jar file
    ant clean
    ant
